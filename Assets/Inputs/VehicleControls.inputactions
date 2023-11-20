@@ -1,5 +1,5 @@
 {
-    "name": "CarControls",
+    "name": "VehicleControls",
     "maps": [
         {
             "name": "Game",
@@ -28,6 +28,24 @@
                     "type": "Value",
                     "id": "59776335-7443-4bbc-9235-68921235ad12",
                     "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Drift",
+                    "type": "Value",
+                    "id": "02b616d0-d8f6-4cd3-98a2-89f732c72e14",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Turbo",
+                    "type": "Value",
+                    "id": "9edba047-8269-4d6a-a1a4-40ed3e6705ea",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -154,6 +172,50 @@
                     "action": "Steer",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "48550eb7-eb0c-4c06-aaf4-d08a911eb5be",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Drift",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4637084a-b08c-43fb-b379-1fc904309876",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Drift",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ea569ff9-6f04-482f-8bf2-25b61cf4f477",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Turbo",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a7f59983-7784-4dd6-956a-eb0fdfe1233c",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Turbo",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
