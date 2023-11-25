@@ -171,7 +171,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigidBody: {fileID: 2141640665}
   accelForce: 40
-  turbo: 0
+  turbo: 3
   brakeForce: 15
   forwardFriction: 10
   lateralFriction: 10
@@ -191,27 +191,27 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.59338164
-      value: 0.121417135
-      inSlope: 0.45723766
-      outSlope: 0.45723766
+      time: 3.5655167
+      value: 8.15233
+      inSlope: 0.50038034
+      outSlope: 0.50038034
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.6219927
+      outWeight: 0.6374956
     - serializedVersion: 3
-      time: 0.97916055
-      value: 1.0047177
-      inSlope: 6.308624
-      outSlope: 6.308624
+      time: 14.7448845
+      value: 10.2871275
+      inSlope: -0.096105225
+      outSlope: -0.096105225
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.075588785
+      inWeight: 0.7815464
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  maxVelocity: 0
+  maxVelocity: 100
   carRotationSpeed: 5
 --- !u!1 &808073302
 GameObject:

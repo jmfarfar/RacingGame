@@ -71,6 +71,24 @@ public partial class @VehicleControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""GearUp"",
+                    ""type"": ""Value"",
+                    ""id"": ""f883dd88-9e1d-42e1-b18e-8dcc45a53a6a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""GearDown"",
+                    ""type"": ""Value"",
+                    ""id"": ""83b3d2d9-b827-4205-884f-8a9ca588fe1e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -238,6 +256,50 @@ public partial class @VehicleControls: IInputActionCollection2, IDisposable
                     ""action"": ""Turbo"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8b0380b9-3c53-41c7-a41a-710e47457131"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GearUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""676551dd-9e34-4655-b015-2bc439c91e23"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GearUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e7d11d54-bdee-4ed4-8992-6d9a104f790f"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GearDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""519c93e6-bc83-4f28-8d38-b19a0fad0643"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GearDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -251,6 +313,8 @@ public partial class @VehicleControls: IInputActionCollection2, IDisposable
         m_Game_Steer = m_Game.FindAction("Steer", throwIfNotFound: true);
         m_Game_Drift = m_Game.FindAction("Drift", throwIfNotFound: true);
         m_Game_Turbo = m_Game.FindAction("Turbo", throwIfNotFound: true);
+        m_Game_GearUp = m_Game.FindAction("GearUp", throwIfNotFound: true);
+        m_Game_GearDown = m_Game.FindAction("GearDown", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -317,6 +381,8 @@ public partial class @VehicleControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Game_Steer;
     private readonly InputAction m_Game_Drift;
     private readonly InputAction m_Game_Turbo;
+    private readonly InputAction m_Game_GearUp;
+    private readonly InputAction m_Game_GearDown;
     public struct GameActions
     {
         private @VehicleControls m_Wrapper;
@@ -326,6 +392,8 @@ public partial class @VehicleControls: IInputActionCollection2, IDisposable
         public InputAction @Steer => m_Wrapper.m_Game_Steer;
         public InputAction @Drift => m_Wrapper.m_Game_Drift;
         public InputAction @Turbo => m_Wrapper.m_Game_Turbo;
+        public InputAction @GearUp => m_Wrapper.m_Game_GearUp;
+        public InputAction @GearDown => m_Wrapper.m_Game_GearDown;
         public InputActionMap Get() { return m_Wrapper.m_Game; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -350,6 +418,12 @@ public partial class @VehicleControls: IInputActionCollection2, IDisposable
             @Turbo.started += instance.OnTurbo;
             @Turbo.performed += instance.OnTurbo;
             @Turbo.canceled += instance.OnTurbo;
+            @GearUp.started += instance.OnGearUp;
+            @GearUp.performed += instance.OnGearUp;
+            @GearUp.canceled += instance.OnGearUp;
+            @GearDown.started += instance.OnGearDown;
+            @GearDown.performed += instance.OnGearDown;
+            @GearDown.canceled += instance.OnGearDown;
         }
 
         private void UnregisterCallbacks(IGameActions instance)
@@ -369,6 +443,12 @@ public partial class @VehicleControls: IInputActionCollection2, IDisposable
             @Turbo.started -= instance.OnTurbo;
             @Turbo.performed -= instance.OnTurbo;
             @Turbo.canceled -= instance.OnTurbo;
+            @GearUp.started -= instance.OnGearUp;
+            @GearUp.performed -= instance.OnGearUp;
+            @GearUp.canceled -= instance.OnGearUp;
+            @GearDown.started -= instance.OnGearDown;
+            @GearDown.performed -= instance.OnGearDown;
+            @GearDown.canceled -= instance.OnGearDown;
         }
 
         public void RemoveCallbacks(IGameActions instance)
@@ -393,5 +473,7 @@ public partial class @VehicleControls: IInputActionCollection2, IDisposable
         void OnSteer(InputAction.CallbackContext context);
         void OnDrift(InputAction.CallbackContext context);
         void OnTurbo(InputAction.CallbackContext context);
+        void OnGearUp(InputAction.CallbackContext context);
+        void OnGearDown(InputAction.CallbackContext context);
     }
 }
