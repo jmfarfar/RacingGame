@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 
 enum Gears
 {
-    Gear1, Gear2, Gear3, Gear4, Gear5
+    Gear1 = 1, Gear2 = 2, Gear3 = 3, Gear4 = 4, Gear5 = 5
 }
 
 public class Car : MonoBehaviour, IVehicle
@@ -43,6 +43,8 @@ public class Car : MonoBehaviour, IVehicle
     float normalizedForwardMovement;
     Gears currentGear = Gears.Gear1;
     private float accelBkp;
+    private float maxSpeedFactor = 0.2f;
+    private float minAcceleration = 0.1f;
 
     private float sf;
 
@@ -61,6 +63,11 @@ public class Car : MonoBehaviour, IVehicle
     {
         visual.Translate(0f, -sphereCollider.radius, 0f);
         accelBkp = accelForce;
+
+        for (int i = 1; i <= gearsMaxVelocities.Count; i++)
+        {
+            gearsMaxVelocities[i-1] = (maxVelocity / 5f) * i;
+        }
     }
 
     // Update is called once per frame
@@ -68,16 +75,6 @@ public class Car : MonoBehaviour, IVehicle
     {
         Steer();
         transform.position = rigidBody.position;
-
-        if ((gearsMaxVelocities[(int)currentGear] - (rigidBody.velocity.magnitude * 3.6f)) > 20f && currentGear != Gears.Gear1)
-        {
-            accelForce /= 2;
-            
-        }
-        else
-        {
-            accelForce = accelBkp;
-        }
 
     }
 
@@ -104,7 +101,10 @@ public class Car : MonoBehaviour, IVehicle
 
         GUI.Label(new Rect(300, 50, 600, 100), "curve: " + (1 - acceleration.Evaluate(sf / (maxVelocity / 3.6f))), fontSize);
         GUI.Label(new Rect(300, 100, 600, 100), "km/h: " + rigidBody.velocity.magnitude * 3.6f, fontSize);
-        GUI.Label(new Rect(300, 150, 600, 100), "Gear: " + currentGear, fontSize);
+        GUI.Label(new Rect(300, 150, 600, 100), "m/s: " + rigidBody.velocity.magnitude, fontSize);
+        GUI.Label(new Rect(300, 200, 600, 100), "Gear: " + currentGear, fontSize);
+        GUI.Label(new Rect(300, 250, 600, 100), "Velocity From Gear Range: " + VelocityFromGearRange((sf / 3.6f) / (maxVelocity / 3.6f)), fontSize);
+        GUI.Label(new Rect(300, 300, 600, 100), "Velocity Normalized: " + (sf / 3.6f) / (maxVelocity / 3.6f), fontSize);
     }
 
     void OnGearUp(InputAction.CallbackContext context)
@@ -112,7 +112,7 @@ public class Car : MonoBehaviour, IVehicle
         if (currentGear < Gears.Gear5)
         {
             currentGear++;
-            
+
         }
     }
 
@@ -121,7 +121,7 @@ public class Car : MonoBehaviour, IVehicle
         if (currentGear > Gears.Gear1)
         {
             currentGear--;
-            
+
         }
     }
 
@@ -148,22 +148,27 @@ public class Car : MonoBehaviour, IVehicle
         var speedForward = Vector3.Dot(rigidBody.velocity, transform.forward);
         var speedLateral = Vector3.Dot(rigidBody.velocity, transform.right);
 
-        sf = rigidBody.velocity.magnitude;
+        sf = rigidBody.velocity.magnitude * 3.6f;
 
         normalizedForwardMovement = Mathf.Clamp(speedForward / 30f, -1f, 1f);
 
         grounded = Physics.SphereCast(rigidBody.position + transform.up * 0.1f, sphereCollider.radius, -transform.up, out var hit, 0.2f);
         if (grounded)
         {
-            //rigidBody.AddTorque(transform.right * carActions.Accelerate.ReadValue<float>() * accelForce, ForceMode.Force);
             if (carActions.Turbo.IsPressed() && !nitro.NitroDepleted)
                 ActivateTurbo();
             else
-                rigidBody.AddForce(transform.forward * (1 - acceleration.Evaluate(sf / (maxVelocity / 3.6f))) * accelForce * carActions.Accelerate.ReadValue<float>(), ForceMode.Acceleration);
+                rigidBody.AddForce(transform.forward * acceleration.Evaluate(VelocityFromGearRange((sf / 3.6f) / (maxVelocity / 3.6f))) * accelForce * carActions.Accelerate.ReadValue<float>(), ForceMode.Acceleration);
 
             rigidBody.AddForce(-transform.forward * brakeForce * carActions.Brake.ReadValue<float>(), ForceMode.Acceleration);
             rigidBody.AddForce(-transform.right * Mathf.Abs(speedLateral * lateralFriction) * Mathf.Sign(speedLateral), ForceMode.Acceleration);
             rigidBody.AddForce(-transform.forward * Mathf.Min(Mathf.Abs(speedForward), forwardFriction) * Mathf.Sign(speedForward), ForceMode.Acceleration);
+
+            Vector3 horizontalMovement = rigidBody.velocity;
+            horizontalMovement.y = 0f;
+            horizontalMovement = Vector3.ClampMagnitude(horizontalMovement, maxVelocity / 3.6f);
+            horizontalMovement.y = rigidBody.velocity.y;
+            rigidBody.velocity = horizontalMovement;
 
             var fwd = Vector3.Cross(transform.right, hit.normal);
             Quaternion targetRotation = Quaternion.LookRotation(fwd, hit.normal);
@@ -184,5 +189,14 @@ public class Car : MonoBehaviour, IVehicle
             else
                 RecoverTraction();
         }
+    }
+
+    private float VelocityFromGearRange(float x)
+    {
+        // 1 / (gear - 1 * maxSpeedFactor) - (gear * maxSpeedFactor) * (X + minAcceleration) + (gear - 1 * maxSpeedFactor) / (gear * maxSpeedFactor) - (gear - 1 * maxSpeedFactor)
+        float a = (((int)currentGear - 3f) * maxSpeedFactor);
+        float b = ((int)currentGear * maxSpeedFactor);
+
+        return Mathf.Clamp(((1 / (b - a)) * x) + (a / (a - b)), 1 / ((int)currentGear * (int)currentGear * (int)currentGear * (int)currentGear), (int)currentGear * maxSpeedFactor);
     }
 }
