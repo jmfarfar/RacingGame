@@ -14,11 +14,6 @@ public class Car : MonoBehaviour, IVehicle
 {
     [Header("Gears Setup")]
     [SerializeField] List<float> gearsMaxVelocities = new List<float>();
-    //[SerializeField] float maxVelocityG1;
-    //[SerializeField] float maxVelocityG2;
-    //[SerializeField] float maxVelocityG3;
-    //[SerializeField] float maxVelocityG4;
-    //[SerializeField] float maxVelocityG5;
 
     [Header("Physics")]
     public Rigidbody rigidBody;
@@ -66,7 +61,7 @@ public class Car : MonoBehaviour, IVehicle
 
         for (int i = 1; i <= gearsMaxVelocities.Count; i++)
         {
-            gearsMaxVelocities[i-1] = (maxVelocity / 5f) * i;
+            gearsMaxVelocities[i - 1] = (maxVelocity / 5f) * i;
         }
     }
 
@@ -128,17 +123,19 @@ public class Car : MonoBehaviour, IVehicle
     public void Drift()
     {
         turnSpeed = 135f;
+        lateralFriction = 0.5f;
     }
 
     public void RecoverTraction()
     {
         turnSpeed = 90f;
+        lateralFriction = 2.0f;
     }
 
     public void ActivateTurbo()
     {
-        nitro.ConsumeNitroBar();
-        rigidBody.AddForce(transform.forward * turbo * (1 - acceleration.Evaluate(sf / (maxVelocity / 3.6f))) * accelForce * carActions.Accelerate.ReadValue<float>(), ForceMode.Acceleration);
+        nitro.ConsumeNitroBar(10f);
+        rigidBody.AddForce(transform.forward * turbo * acceleration.Evaluate(VelocityFromGearRange((sf / 3.6f) / (maxVelocity / 3.6f))) * accelForce * carActions.Accelerate.ReadValue<float>(), ForceMode.Acceleration);
 
     }
 

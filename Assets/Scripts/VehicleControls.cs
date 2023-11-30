@@ -89,6 +89,15 @@ public partial class @VehicleControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ChangeCamera"",
+                    ""type"": ""Value"",
+                    ""id"": ""dd8bfbb9-5316-48f9-9798-a86ebb639501"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -300,6 +309,339 @@ public partial class @VehicleControls: IInputActionCollection2, IDisposable
                     ""action"": ""GearDown"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4faa54ac-baf8-4e96-bcec-84ffe40733ab"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0559e578-cca3-4f70-8a01-527ee622e08a"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Player2"",
+            ""id"": ""5a50f8e1-c412-4dc3-9dde-86f87830c0d4"",
+            ""actions"": [
+                {
+                    ""name"": ""Brake"",
+                    ""type"": ""Value"",
+                    ""id"": ""d851117d-9e32-43ce-ad49-1139484c9ab9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Accelerate"",
+                    ""type"": ""Value"",
+                    ""id"": ""47d7e2d1-091b-474d-9501-2f6f8b378a0a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Steer"",
+                    ""type"": ""Value"",
+                    ""id"": ""e726bdf1-00d1-4aaa-ac26-a1b09de34c40"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Drift"",
+                    ""type"": ""Value"",
+                    ""id"": ""1cacd3c3-10c3-49b5-af3e-a2ee3fec789b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Turbo"",
+                    ""type"": ""Value"",
+                    ""id"": ""985802c8-d1ef-4cc4-bbfb-67a4e76675ab"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""GearUp"",
+                    ""type"": ""Value"",
+                    ""id"": ""07681191-1326-4121-af3d-06a2b54902b3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""GearDown"",
+                    ""type"": ""Value"",
+                    ""id"": ""55dcb535-59a2-4e73-b431-7268a5bb5422"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ChangeCamera"",
+                    ""type"": ""Value"",
+                    ""id"": ""858167e8-85f6-475f-a85a-3b499b14a625"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""4fe91bb4-3f39-40df-8748-bc700072f3ab"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Brake"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e52b1f77-0f31-4f48-9a9c-00847b529f29"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Brake"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""15972d58-8906-4c58-9b26-e603cd69e34b"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Accelerate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""2414443b-5922-4c4a-b687-8050e7d31f65"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Accelerate"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""6ef336af-7da5-467b-b260-15e071357d0a"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Accelerate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""602c8ce0-c408-4dca-9c10-0199cfa54e54"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Accelerate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""56e7681d-872c-477e-8c8d-7de8bec91d28"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Accelerate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eeb6fed9-d023-4169-a393-ada449de2666"",
+                    ""path"": ""<Gamepad>/leftStick/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Steer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""91010606-07cc-4778-8fcd-789a977bdd0f"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Steer"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""2de5716f-7e8e-4850-8f13-b0b8bbd96967"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Steer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""6636cbb7-db91-42b9-a6b9-f7e41a0d983d"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Steer"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""112e8ef5-fce1-4dcb-bfa9-6405532e64a6"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Drift"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""28139ca8-81a9-4c0d-8577-9bc7927fd338"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Drift"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7b83edb5-0c9b-4f85-a1a9-d394f4627ff5"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Turbo"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""06ab3699-54cd-448f-8ab4-a740306dd4c8"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Turbo"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""821d143f-67c9-424d-a76b-5ea4acc6b5df"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GearUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9336254f-e6a6-475a-92e1-cf33b2bc0ec4"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GearUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""348bf70a-cb7e-4550-a066-9ec82977f4da"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GearDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d9ae1ada-f6a4-4adc-ad15-ba7d61d214ec"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""GearDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""76fe83fa-d538-43ce-aa5a-89a9077cca3e"",
+                    ""path"": ""<Gamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""355b253f-0158-4d15-9d20-4ef9406184ad"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeCamera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -315,6 +657,17 @@ public partial class @VehicleControls: IInputActionCollection2, IDisposable
         m_Game_Turbo = m_Game.FindAction("Turbo", throwIfNotFound: true);
         m_Game_GearUp = m_Game.FindAction("GearUp", throwIfNotFound: true);
         m_Game_GearDown = m_Game.FindAction("GearDown", throwIfNotFound: true);
+        m_Game_ChangeCamera = m_Game.FindAction("ChangeCamera", throwIfNotFound: true);
+        // Player2
+        m_Player2 = asset.FindActionMap("Player2", throwIfNotFound: true);
+        m_Player2_Brake = m_Player2.FindAction("Brake", throwIfNotFound: true);
+        m_Player2_Accelerate = m_Player2.FindAction("Accelerate", throwIfNotFound: true);
+        m_Player2_Steer = m_Player2.FindAction("Steer", throwIfNotFound: true);
+        m_Player2_Drift = m_Player2.FindAction("Drift", throwIfNotFound: true);
+        m_Player2_Turbo = m_Player2.FindAction("Turbo", throwIfNotFound: true);
+        m_Player2_GearUp = m_Player2.FindAction("GearUp", throwIfNotFound: true);
+        m_Player2_GearDown = m_Player2.FindAction("GearDown", throwIfNotFound: true);
+        m_Player2_ChangeCamera = m_Player2.FindAction("ChangeCamera", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -383,6 +736,7 @@ public partial class @VehicleControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Game_Turbo;
     private readonly InputAction m_Game_GearUp;
     private readonly InputAction m_Game_GearDown;
+    private readonly InputAction m_Game_ChangeCamera;
     public struct GameActions
     {
         private @VehicleControls m_Wrapper;
@@ -394,6 +748,7 @@ public partial class @VehicleControls: IInputActionCollection2, IDisposable
         public InputAction @Turbo => m_Wrapper.m_Game_Turbo;
         public InputAction @GearUp => m_Wrapper.m_Game_GearUp;
         public InputAction @GearDown => m_Wrapper.m_Game_GearDown;
+        public InputAction @ChangeCamera => m_Wrapper.m_Game_ChangeCamera;
         public InputActionMap Get() { return m_Wrapper.m_Game; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -424,6 +779,9 @@ public partial class @VehicleControls: IInputActionCollection2, IDisposable
             @GearDown.started += instance.OnGearDown;
             @GearDown.performed += instance.OnGearDown;
             @GearDown.canceled += instance.OnGearDown;
+            @ChangeCamera.started += instance.OnChangeCamera;
+            @ChangeCamera.performed += instance.OnChangeCamera;
+            @ChangeCamera.canceled += instance.OnChangeCamera;
         }
 
         private void UnregisterCallbacks(IGameActions instance)
@@ -449,6 +807,9 @@ public partial class @VehicleControls: IInputActionCollection2, IDisposable
             @GearDown.started -= instance.OnGearDown;
             @GearDown.performed -= instance.OnGearDown;
             @GearDown.canceled -= instance.OnGearDown;
+            @ChangeCamera.started -= instance.OnChangeCamera;
+            @ChangeCamera.performed -= instance.OnChangeCamera;
+            @ChangeCamera.canceled -= instance.OnChangeCamera;
         }
 
         public void RemoveCallbacks(IGameActions instance)
@@ -466,6 +827,108 @@ public partial class @VehicleControls: IInputActionCollection2, IDisposable
         }
     }
     public GameActions @Game => new GameActions(this);
+
+    // Player2
+    private readonly InputActionMap m_Player2;
+    private List<IPlayer2Actions> m_Player2ActionsCallbackInterfaces = new List<IPlayer2Actions>();
+    private readonly InputAction m_Player2_Brake;
+    private readonly InputAction m_Player2_Accelerate;
+    private readonly InputAction m_Player2_Steer;
+    private readonly InputAction m_Player2_Drift;
+    private readonly InputAction m_Player2_Turbo;
+    private readonly InputAction m_Player2_GearUp;
+    private readonly InputAction m_Player2_GearDown;
+    private readonly InputAction m_Player2_ChangeCamera;
+    public struct Player2Actions
+    {
+        private @VehicleControls m_Wrapper;
+        public Player2Actions(@VehicleControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Brake => m_Wrapper.m_Player2_Brake;
+        public InputAction @Accelerate => m_Wrapper.m_Player2_Accelerate;
+        public InputAction @Steer => m_Wrapper.m_Player2_Steer;
+        public InputAction @Drift => m_Wrapper.m_Player2_Drift;
+        public InputAction @Turbo => m_Wrapper.m_Player2_Turbo;
+        public InputAction @GearUp => m_Wrapper.m_Player2_GearUp;
+        public InputAction @GearDown => m_Wrapper.m_Player2_GearDown;
+        public InputAction @ChangeCamera => m_Wrapper.m_Player2_ChangeCamera;
+        public InputActionMap Get() { return m_Wrapper.m_Player2; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(Player2Actions set) { return set.Get(); }
+        public void AddCallbacks(IPlayer2Actions instance)
+        {
+            if (instance == null || m_Wrapper.m_Player2ActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_Player2ActionsCallbackInterfaces.Add(instance);
+            @Brake.started += instance.OnBrake;
+            @Brake.performed += instance.OnBrake;
+            @Brake.canceled += instance.OnBrake;
+            @Accelerate.started += instance.OnAccelerate;
+            @Accelerate.performed += instance.OnAccelerate;
+            @Accelerate.canceled += instance.OnAccelerate;
+            @Steer.started += instance.OnSteer;
+            @Steer.performed += instance.OnSteer;
+            @Steer.canceled += instance.OnSteer;
+            @Drift.started += instance.OnDrift;
+            @Drift.performed += instance.OnDrift;
+            @Drift.canceled += instance.OnDrift;
+            @Turbo.started += instance.OnTurbo;
+            @Turbo.performed += instance.OnTurbo;
+            @Turbo.canceled += instance.OnTurbo;
+            @GearUp.started += instance.OnGearUp;
+            @GearUp.performed += instance.OnGearUp;
+            @GearUp.canceled += instance.OnGearUp;
+            @GearDown.started += instance.OnGearDown;
+            @GearDown.performed += instance.OnGearDown;
+            @GearDown.canceled += instance.OnGearDown;
+            @ChangeCamera.started += instance.OnChangeCamera;
+            @ChangeCamera.performed += instance.OnChangeCamera;
+            @ChangeCamera.canceled += instance.OnChangeCamera;
+        }
+
+        private void UnregisterCallbacks(IPlayer2Actions instance)
+        {
+            @Brake.started -= instance.OnBrake;
+            @Brake.performed -= instance.OnBrake;
+            @Brake.canceled -= instance.OnBrake;
+            @Accelerate.started -= instance.OnAccelerate;
+            @Accelerate.performed -= instance.OnAccelerate;
+            @Accelerate.canceled -= instance.OnAccelerate;
+            @Steer.started -= instance.OnSteer;
+            @Steer.performed -= instance.OnSteer;
+            @Steer.canceled -= instance.OnSteer;
+            @Drift.started -= instance.OnDrift;
+            @Drift.performed -= instance.OnDrift;
+            @Drift.canceled -= instance.OnDrift;
+            @Turbo.started -= instance.OnTurbo;
+            @Turbo.performed -= instance.OnTurbo;
+            @Turbo.canceled -= instance.OnTurbo;
+            @GearUp.started -= instance.OnGearUp;
+            @GearUp.performed -= instance.OnGearUp;
+            @GearUp.canceled -= instance.OnGearUp;
+            @GearDown.started -= instance.OnGearDown;
+            @GearDown.performed -= instance.OnGearDown;
+            @GearDown.canceled -= instance.OnGearDown;
+            @ChangeCamera.started -= instance.OnChangeCamera;
+            @ChangeCamera.performed -= instance.OnChangeCamera;
+            @ChangeCamera.canceled -= instance.OnChangeCamera;
+        }
+
+        public void RemoveCallbacks(IPlayer2Actions instance)
+        {
+            if (m_Wrapper.m_Player2ActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IPlayer2Actions instance)
+        {
+            foreach (var item in m_Wrapper.m_Player2ActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_Player2ActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public Player2Actions @Player2 => new Player2Actions(this);
     public interface IGameActions
     {
         void OnBrake(InputAction.CallbackContext context);
@@ -475,5 +938,17 @@ public partial class @VehicleControls: IInputActionCollection2, IDisposable
         void OnTurbo(InputAction.CallbackContext context);
         void OnGearUp(InputAction.CallbackContext context);
         void OnGearDown(InputAction.CallbackContext context);
+        void OnChangeCamera(InputAction.CallbackContext context);
+    }
+    public interface IPlayer2Actions
+    {
+        void OnBrake(InputAction.CallbackContext context);
+        void OnAccelerate(InputAction.CallbackContext context);
+        void OnSteer(InputAction.CallbackContext context);
+        void OnDrift(InputAction.CallbackContext context);
+        void OnTurbo(InputAction.CallbackContext context);
+        void OnGearUp(InputAction.CallbackContext context);
+        void OnGearDown(InputAction.CallbackContext context);
+        void OnChangeCamera(InputAction.CallbackContext context);
     }
 }
