@@ -1595,7 +1595,7 @@ GameObject:
   - component: {fileID: 431271460}
   - component: {fileID: 431271459}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Pos_winners
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3017,7 +3017,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "VEH\xCDCULO"
+  m_text: VEHICULO
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0f3a4331b434345c08067b3734304d9b, type: 2}
   m_sharedMaterial: {fileID: -8142794801742375057, guid: 0f3a4331b434345c08067b3734304d9b,
@@ -3394,7 +3394,7 @@ GameObject:
   - component: {fileID: 764827512}
   - component: {fileID: 764827511}
   m_Layer: 5
-  m_Name: 01
+  m_Name: num_pos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3439,7 +3439,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 01
+  m_text: '04
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0f3a4331b434345c08067b3734304d9b, type: 2}
   m_sharedMaterial: {fileID: -8142794801742375057, guid: 0f3a4331b434345c08067b3734304d9b,
@@ -4664,7 +4666,7 @@ GameObject:
   - component: {fileID: 1079599764}
   - component: {fileID: 1079599763}
   m_Layer: 5
-  m_Name: 01
+  m_Name: num_pos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4709,7 +4711,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 01
+  m_text: 03
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0f3a4331b434345c08067b3734304d9b, type: 2}
   m_sharedMaterial: {fileID: -8142794801742375057, guid: 0f3a4331b434345c08067b3734304d9b,
@@ -5162,7 +5164,7 @@ GameObject:
   - component: {fileID: 1117740622}
   - component: {fileID: 1117740621}
   m_Layer: 5
-  m_Name: 01
+  m_Name: num_pos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5207,7 +5209,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 01
+  m_text: 05
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0f3a4331b434345c08067b3734304d9b, type: 2}
   m_sharedMaterial: {fileID: -8142794801742375057, guid: 0f3a4331b434345c08067b3734304d9b,
@@ -8121,7 +8123,7 @@ GameObject:
   - component: {fileID: 1670261315}
   - component: {fileID: 1670261314}
   m_Layer: 5
-  m_Name: 01
+  m_Name: num_pos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8166,7 +8168,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 01
+  m_text: 02
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0f3a4331b434345c08067b3734304d9b, type: 2}
   m_sharedMaterial: {fileID: -8142794801742375057, guid: 0f3a4331b434345c08067b3734304d9b,
@@ -8393,7 +8395,7 @@ GameObject:
   - component: {fileID: 1681138925}
   - component: {fileID: 1681138924}
   m_Layer: 5
-  m_Name: 01
+  m_Name: num_pos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8438,7 +8440,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 01
+  m_text: 06
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0f3a4331b434345c08067b3734304d9b, type: 2}
   m_sharedMaterial: {fileID: -8142794801742375057, guid: 0f3a4331b434345c08067b3734304d9b,
@@ -8649,7 +8651,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "EUROPA, J\xDAPITER - RACE"
+  m_text: EUROPA, JUPITER - RACE
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 88c8f5c7441a24c80924fecfa33f5706, type: 2}
   m_sharedMaterial: {fileID: -1424349746195310907, guid: 88c8f5c7441a24c80924fecfa33f5706,
@@ -8677,7 +8679,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36.2
+  m_fontSize: 35.9
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -8739,7 +8741,7 @@ GameObject:
   - component: {fileID: 1744276486}
   - component: {fileID: 1744276485}
   m_Layer: 5
-  m_Name: 01
+  m_Name: num_pos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8921,7 +8923,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 335cd2afbcd164c55bcf9ca5552c5d63, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
