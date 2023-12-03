@@ -135,39 +135,6 @@ public partial class @VehicleControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""1D Axis"",
-                    ""id"": ""37b37932-ae24-4cc4-a2a4-46bf01772932"",
-                    ""path"": ""1DAxis"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Accelerate"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""dffe68d2-7690-4d35-a4a3-f821e4314a2c"",
-                    ""path"": ""<Keyboard>/downArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Accelerate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""98703c76-5e5b-490f-9026-f7293ba7c05e"",
-                    ""path"": ""<Keyboard>/upArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Accelerate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
                     ""name"": """",
                     ""id"": ""1d735755-c91d-4314-82fa-9b69ddcde4fd"",
                     ""path"": ""<Keyboard>/w"",
@@ -409,6 +376,15 @@ public partial class @VehicleControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Willie"",
+                    ""type"": ""Value"",
+                    ""id"": ""979e054f-4ce6-4c0a-a902-04f342fa80ec"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -444,39 +420,6 @@ public partial class @VehicleControls: IInputActionCollection2, IDisposable
                     ""action"": ""Accelerate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""1D Axis"",
-                    ""id"": ""2414443b-5922-4c4a-b687-8050e7d31f65"",
-                    ""path"": ""1DAxis"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Accelerate"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""6ef336af-7da5-467b-b260-15e071357d0a"",
-                    ""path"": ""<Keyboard>/downArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Accelerate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""602c8ce0-c408-4dca-9c10-0199cfa54e54"",
-                    ""path"": ""<Keyboard>/upArrow"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Accelerate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
                 },
                 {
                     ""name"": """",
@@ -642,6 +585,28 @@ public partial class @VehicleControls: IInputActionCollection2, IDisposable
                     ""action"": ""ChangeCamera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f28046a8-6d8f-4df5-a7eb-8be68b109e03"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Willie"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3eff0191-6748-437b-a8cf-7b3caaedbbf1"",
+                    ""path"": ""<Gamepad>/leftStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Willie"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -668,6 +633,7 @@ public partial class @VehicleControls: IInputActionCollection2, IDisposable
         m_Player2_GearUp = m_Player2.FindAction("GearUp", throwIfNotFound: true);
         m_Player2_GearDown = m_Player2.FindAction("GearDown", throwIfNotFound: true);
         m_Player2_ChangeCamera = m_Player2.FindAction("ChangeCamera", throwIfNotFound: true);
+        m_Player2_Willie = m_Player2.FindAction("Willie", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -839,6 +805,7 @@ public partial class @VehicleControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player2_GearUp;
     private readonly InputAction m_Player2_GearDown;
     private readonly InputAction m_Player2_ChangeCamera;
+    private readonly InputAction m_Player2_Willie;
     public struct Player2Actions
     {
         private @VehicleControls m_Wrapper;
@@ -851,6 +818,7 @@ public partial class @VehicleControls: IInputActionCollection2, IDisposable
         public InputAction @GearUp => m_Wrapper.m_Player2_GearUp;
         public InputAction @GearDown => m_Wrapper.m_Player2_GearDown;
         public InputAction @ChangeCamera => m_Wrapper.m_Player2_ChangeCamera;
+        public InputAction @Willie => m_Wrapper.m_Player2_Willie;
         public InputActionMap Get() { return m_Wrapper.m_Player2; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -884,6 +852,9 @@ public partial class @VehicleControls: IInputActionCollection2, IDisposable
             @ChangeCamera.started += instance.OnChangeCamera;
             @ChangeCamera.performed += instance.OnChangeCamera;
             @ChangeCamera.canceled += instance.OnChangeCamera;
+            @Willie.started += instance.OnWillie;
+            @Willie.performed += instance.OnWillie;
+            @Willie.canceled += instance.OnWillie;
         }
 
         private void UnregisterCallbacks(IPlayer2Actions instance)
@@ -912,6 +883,9 @@ public partial class @VehicleControls: IInputActionCollection2, IDisposable
             @ChangeCamera.started -= instance.OnChangeCamera;
             @ChangeCamera.performed -= instance.OnChangeCamera;
             @ChangeCamera.canceled -= instance.OnChangeCamera;
+            @Willie.started -= instance.OnWillie;
+            @Willie.performed -= instance.OnWillie;
+            @Willie.canceled -= instance.OnWillie;
         }
 
         public void RemoveCallbacks(IPlayer2Actions instance)
@@ -950,5 +924,6 @@ public partial class @VehicleControls: IInputActionCollection2, IDisposable
         void OnGearUp(InputAction.CallbackContext context);
         void OnGearDown(InputAction.CallbackContext context);
         void OnChangeCamera(InputAction.CallbackContext context);
+        void OnWillie(InputAction.CallbackContext context);
     }
 }

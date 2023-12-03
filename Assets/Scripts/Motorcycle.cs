@@ -25,7 +25,7 @@ public class Motorcycle : MonoBehaviour, IVehicle
 
     private SphereCollider sphereCollider;
     private VehicleControls inputActions;
-    private VehicleControls.GameActions carActions;
+    private VehicleControls.Player2Actions carActions;
     private bool grounded;
     private float carRotation = 0f;
     [SerializeField] private float carRotationSpeed;
@@ -34,6 +34,7 @@ public class Motorcycle : MonoBehaviour, IVehicle
     private float accelBkp;
     private float maxSpeedFactor = 0.2f;
     private float minAcceleration = 0.1f;
+    private Animator animator;
 
     private float sf;
 
@@ -42,14 +43,16 @@ public class Motorcycle : MonoBehaviour, IVehicle
     {
         inputActions = new VehicleControls();
         inputActions.Enable();
-        carActions = inputActions.Game;
+        carActions = inputActions.Player2;
         sphereCollider = rigidBody.GetOrAddComponent<SphereCollider>();
-        inputActions.Game.GearUp.performed += OnGearUp;
-        inputActions.Game.GearDown.performed += OnGearDown;
+        inputActions.Player2.GearUp.performed += OnGearUp;
+        inputActions.Player2.GearDown.performed += OnGearDown;
+        //inputActions.Player2.Willie.performed += OnWillie;
     }
     // Start is called before the first frame update
     void Start()
     {
+        animator = GetComponentInChildren<Animator>();
         visual.Translate(0f, -sphereCollider.radius, 0f);
         accelBkp = accelForce;
 
@@ -151,6 +154,14 @@ public class Motorcycle : MonoBehaviour, IVehicle
             else
                 rigidBody.AddForce(transform.forward * acceleration.Evaluate(VelocityFromGearRange((sf / 3.6f) / (maxVelocity / 3.6f))) * accelForce * carActions.Accelerate.ReadValue<float>(), ForceMode.Acceleration);
 
+            //if (carActions.Willie.IsPressed())
+            //{
+            //    Willie();
+            //}
+            //else
+            //{
+            //    NormalPosition();
+            //}
             rigidBody.AddForce(-transform.forward * brakeForce * carActions.Brake.ReadValue<float>(), ForceMode.Acceleration);
             rigidBody.AddForce(-transform.right * Mathf.Abs(speedLateral * lateralFriction) * Mathf.Sign(speedLateral), ForceMode.Acceleration);
             rigidBody.AddForce(-transform.forward * Mathf.Min(Mathf.Abs(speedForward), forwardFriction) * Mathf.Sign(speedForward), ForceMode.Acceleration);
@@ -191,4 +202,6 @@ public class Motorcycle : MonoBehaviour, IVehicle
 
         return Mathf.Clamp(((1 / (b - a)) * x) + (a / (a - b)), 1 / ((int)currentGear * (int)currentGear * (int)currentGear * (int)currentGear), (int)currentGear * maxSpeedFactor);
     }
+
+    
 }
