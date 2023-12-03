@@ -13,6 +13,9 @@ public class MotorcycleAnimationHandler : MonoBehaviour
     float forwardVelocity, lateralVelocity, tirePatternOffset, willieForce;
 
 
+//ES-2023.11.25_EnemyBehavior
+    public Motorcycle motorcycle;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -25,6 +28,16 @@ public class MotorcycleAnimationHandler : MonoBehaviour
     private void Update()
     {
         tirePatternOffset += forwardVelocity * 0.1f;
+
+        if( motorcycle.isUser() ) //ES-2023.11.25_EnemyBehavior
+        {        
+            lateralVelocity = Mathf.Lerp(lateralVelocity, actions.Steer.ReadValue<float>(), 0.1f);
+        }
+        else
+        {
+            lateralVelocity = Mathf.Lerp(lateralVelocity, motorcycle.horizontal, 0.1f);
+        }
+
         lateralVelocity = Mathf.Lerp(lateralVelocity, actions.Steer.ReadValue<float>(), 0.1f);
         willieForce = Mathf.Lerp(willieForce, actions.Willie.ReadValue<float>(), 0.1f);
 

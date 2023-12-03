@@ -4,6 +4,13 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+//ES-2023.11.25_EnemyBehavior
+public enum motorcycleDriver 
+{
+    AI,
+    User,
+} 
+
 public class Motorcycle : MonoBehaviour, IVehicle
 {
     [Header("Gears Setup")]
@@ -38,17 +45,39 @@ public class Motorcycle : MonoBehaviour, IVehicle
 
     private float sf;
 
+//ES-2023.11.25_EnemyBehavior
+    [Header("EnemyAI")]  
+    [SerializeField] public motorcycleDriver motorcycleController;   
+
+    public Transform currentWaypoint;
+    [HideInInspector] public float horizontal;
+    public TrackWaypoints wayPoints;
+    private List<Transform> nodes = new List<Transform>();
+    public float radius = 6;
+    public int distanceOffset = 1;
+    private int currentNode;
+    [Range(-1,1)]public int accelerationAI = 1; 
+    [Range(1,0)]public int brakPower = 0; 
+    public float KPH;        
+    [SerializeField] [Range(0,5)]private  float steerForce;
+    [SerializeField] private AnimationCurve enginePowerAI; 
+    private float minRPM = 0; 
 
     private void Awake()
     {
-        inputActions = new VehicleControls();
-        inputActions.Enable();
-        carActions = inputActions.Player2;
-        sphereCollider = rigidBody.GetOrAddComponent<SphereCollider>();
-        inputActions.Player2.GearUp.performed += OnGearUp;
-        inputActions.Player2.GearDown.performed += OnGearDown;
-        //inputActions.Player2.Willie.performed += OnWillie;
+       if( isUser() ) //ES-2023.11.25_EnemyBehavior
+       {              
+            inputActions = new VehicleControls();
+            inputActions.Enable();
+            carActions = inputActions.Game;
+
+            inputActions.Game.GearUp.performed += OnGearUp;
+            inputActions.Game.GearDown.performed += OnGearDown;
+       }
+
+            sphereCollider = rigidBody.GetOrAddComponent<SphereCollider>();
     }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -60,14 +89,23 @@ public class Motorcycle : MonoBehaviour, IVehicle
         {
             gearsMaxVelocities[i - 1] = (maxVelocity / 5f) * i;
         }
+
+        //ES-2023.11.25_EnemyBehavior
+            wayPoints = GameObject.FindGameObjectWithTag("Path").GetComponent<TrackWaypoints>();
+            currentWaypoint = gameObject.transform;       
+            nodes = wayPoints.nodes;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        Steer();
-        transform.position = rigidBody.position;
+        if( isUser() ) //ES-2023.11.25_EnemyBehavior
+            Steer();
+        else
+            AIDrive();
 
+        transform.position = rigidBody.position;
     }
 
     private void FixedUpdate()
@@ -82,7 +120,14 @@ public class Motorcycle : MonoBehaviour, IVehicle
             _ => maxVelocity
         };
 
-        Movement();
+        //ES-2023.11.25_EnemyBehavior
+       if( isUser() ) Movement();
+       else
+       {
+            AIMovement();
+            Shifter();
+       }    
+
         //Debug.Log("m/s: " + rigidBody.velocity.magnitude);
     }
 
@@ -203,5 +248,117 @@ public class Motorcycle : MonoBehaviour, IVehicle
         return Mathf.Clamp(((1 / (b - a)) * x) + (a / (a - b)), 1 / ((int)currentGear * (int)currentGear * (int)currentGear * (int)currentGear), (int)currentGear * maxSpeedFactor);
     }
 
+//------------------------------------------------------------------------------------------------------------
+   private void AIDrive()
+    {
+        CalculateDistanceOfWaypoints();        
+        AISteer();
+    }
+
+   private void AISteer()
+    {
+        Vector3 relative = transform.InverseTransformPoint(currentWaypoint.transform.position);
+        relative /= relative.magnitude;
+
+        horizontal = (relative.x / relative.magnitude) * steerForce;
+
+            carRotation = Mathf.Lerp(carRotation, horizontal, carRotationSpeed * Time.deltaTime);
+            transform.Rotate(transform.up, carRotation * turnSpeed * normalizedForwardMovement * Time.deltaTime);
+
+    }
+
+    private void CalculateDistanceOfWaypoints()
+    {
+        Vector3 position = gameObject.transform.position;
+        float distance = Mathf.Infinity;
+
+        for (int i = 0; i < nodes.Count; i++) {
+            Vector3 difference = nodes[i].transform.position - position;
+            float currentDistance = difference.magnitude;
+            if (currentDistance < distance) {
+                if ((i + distanceOffset) >= nodes.Count) {
+                    currentWaypoint = nodes[1];
+                    distance = currentDistance;
+                } else {
+                    currentWaypoint = nodes[i + distanceOffset];
+                    distance = currentDistance;
+                }
+                currentNode = i;
+            }
+            
+        }
+    }
+
+    public void AIMovement()
+    {
+        BrakeVehicle();
+        var speedForward = Vector3.Dot(rigidBody.velocity, transform.forward);
+        var speedLateral = Vector3.Dot(rigidBody.velocity, transform.right);
+
+        sf = rigidBody.velocity.magnitude * 3.6f;
+
+        normalizedForwardMovement = Mathf.Clamp(speedForward / 30f, -1f, 1f);
+
+        grounded = Physics.SphereCast(rigidBody.position + transform.up * 0.1f, sphereCollider.radius, -transform.up, out var hit, 0.2f);
+        if (grounded)
+        {
+
+            rigidBody.AddForce(transform.forward * enginePowerAI.Evaluate(VelocityFromGearRange((sf / 3.6f) / (maxVelocity / 3.6f))) * accelForce * accelerationAI, ForceMode.Acceleration);
+
+            rigidBody.AddForce(-transform.forward * brakeForce * brakPower, ForceMode.Acceleration);
+            rigidBody.AddForce(-transform.right * Mathf.Abs(speedLateral * lateralFriction) * Mathf.Sign(speedLateral), ForceMode.Acceleration);
+            rigidBody.AddForce(-transform.forward * Mathf.Min(Mathf.Abs(speedForward), forwardFriction) * Mathf.Sign(speedForward), ForceMode.Acceleration);
+
+            Vector3 horizontalMovement = rigidBody.velocity;
+            horizontalMovement.y = 0f;
+            horizontalMovement = Vector3.ClampMagnitude(horizontalMovement, maxVelocity / 3.6f);
+            horizontalMovement.y = rigidBody.velocity.y;
+            rigidBody.velocity = horizontalMovement;
+
+            var fwd = Vector3.Cross(transform.right, hit.normal);
+            Quaternion targetRotation = Quaternion.LookRotation(fwd, hit.normal);
+            visual.rotation = Quaternion.Lerp(visual.rotation, targetRotation, carRotationSpeed * 2f * Time.deltaTime);
+
+        }
+                KPH = rigidBody.velocity.magnitude * 3.6f;        
+    }
+
+    private void BrakeVehicle()
+    {
+        if (accelerationAI < 0) brakPower = 1;
+        else brakPower = 0;
+    }
+
+
+   private void Shifter(){
+
+        if(!grounded)return;
+
+        if(KPH > maxVelocity  && currentGear < Gears.Gear5 )
+        {
+            minRPM= maxVelocity;
+            currentGear ++;
+            return;
+        }
+
+        if(KPH < minRPM && currentGear > Gears.Gear1){
+            if (currentGear -1 == Gears.Gear1) minRPM =0;
+            else minRPM = gearsMaxVelocities[(int)currentGear-2];
+
+            currentGear --;
+        }
+    }
+
+    public bool isUser()
+    {
+       if( motorcycleController == motorcycleDriver.User ) return true;
+       else return false;
+    }
     
+     private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.magenta;            
+        Gizmos.DrawWireSphere(currentWaypoint.position, 3);        
+    }
+
 }

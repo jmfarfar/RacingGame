@@ -14,11 +14,16 @@ public class CarAnimationHandler : MonoBehaviour
     VehicleControls inputActions;
     VehicleControls.GameActions actions;
 
+//ES-2023.11.25_EnemyBehavior
+    public Car car;
+
+    // Start is called before the first frame update
     void Awake()
     {
         inputActions = new VehicleControls();
         inputActions.Enable();
         actions = inputActions.Game;
+
     }
 
     void Update()
@@ -33,7 +38,20 @@ public class CarAnimationHandler : MonoBehaviour
 
         for (int i = 0; i < parentTires.Count; i++)
         {
+            if( car.isUser() ) //ES-2023.11.25_EnemyBehavior
+            {
             parentTires[i].localRotation = Quaternion.Euler(0f, 45f * actions.Steer.ReadValue<float>(), 0f);
+            }
+            else
+            {
+            parentTires[i].localRotation = Quaternion.Euler(0f, 45f * car.horizontal, 0f);
+            }
         }
+
+        //var frontTires = tires.ToArray().TakeLast(2);
+        //foreach (Transform tire in frontTires)
+        //{
+        //    tire.rotation = Quaternion.Euler(tire.rotation.x, actions.Steer.ReadValue<float>() * Mathf.Rad2Deg * Mathf.Atan(2.55f / (0.39f + (1.5f / 2))), tire.rotation.z);
+        //}
     }
 }
