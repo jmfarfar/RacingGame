@@ -11,7 +11,7 @@ public class Selected_Car : MonoBehaviour
     private void Start()
     {
         currentCar = SaveManager_Car.instance.currentCar;
-        SelectCar(0);
+        SelectCar(currentCar);
     }
 
 
