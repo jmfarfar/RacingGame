@@ -8,18 +8,15 @@ public class Selected_Car : MonoBehaviour
 
     private int currentCar;
 
-    private void Awake()
+    private void Start()
     {
+        currentCar = SaveManager_Car.instance.currentCar;
         SelectCar(0);
     }
 
 
     private void SelectCar(int _index)
     {
-
-        previousButton.interactable = (_index != 0);
-        nextButton.interactable = (_index != transform.childCount - 1);
-
         for (int i = 0; i < transform.childCount; i++)
         {
             transform.GetChild(i).gameObject.SetActive(i == _index);
@@ -30,7 +27,16 @@ public class Selected_Car : MonoBehaviour
     public void ChangeCar(int _change)
     {
         currentCar += _change;
+        if (currentCar > transform.childCount - 1)
+            currentCar = 0;
+        else if (currentCar < 0)
+            currentCar = transform.childCount - 1;
+        
+
+        SaveManager_Car.instance.currentCar = currentCar;
+        SaveManager_Car.instance.Save();
         SelectCar(currentCar);
+
 
     }
 }
