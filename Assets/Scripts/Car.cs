@@ -11,11 +11,11 @@ enum Gears
 }
 
 //ES-2023.11.25_EnemyBehavior
-public enum driver 
+public enum driver
 {
     AI,
     User,
-} 
+}
 
 public class Car : MonoBehaviour, IVehicle
 {
@@ -38,7 +38,7 @@ public class Car : MonoBehaviour, IVehicle
 
     private SphereCollider sphereCollider;
     private VehicleControls inputActions;
-    private VehicleControls.GameActions carActions;
+    private VehicleControls.Player3Actions carActions;
     private bool grounded;
     private float carRotation = 0f;
     [SerializeField] private float carRotationSpeed;
@@ -50,9 +50,9 @@ public class Car : MonoBehaviour, IVehicle
 
     private float sf;
 
-//ES-2023.11.25_EnemyBehavior
-    [Header("EnemyAI")]  
-    [SerializeField] public driver driverController;   
+    //ES-2023.11.25_EnemyBehavior
+    [Header("EnemyAI")]
+    [SerializeField] public driver driverController;
     public Transform currentWaypoint;
     [HideInInspector] public float horizontal;
     public TrackWaypoints wayPoints;
@@ -60,32 +60,39 @@ public class Car : MonoBehaviour, IVehicle
     public float radius = 6;
     public int distanceOffset = 1;
     private int currentNode;
-    [Range(-1,1)]public int accelerationAI = 1; 
-    [Range(1,0)]public int brakPower = 0; 
-    public float KPH;        
-    [SerializeField] [Range(0,5)]private  float steerForce;
-    [SerializeField] private AnimationCurve enginePowerAI; 
-    private float minRPM = 0; 
+    [Range(-1, 1)] public int accelerationAI = 1;
+    [Range(1, 0)] public int brakPower = 0;
+    public float KPH;
+    [SerializeField][Range(0, 5)] private float steerForce;
+    [SerializeField] private AnimationCurve enginePowerAI;
+    private float minRPM = 0;
+    private Cameras cameras;
 
 
     private void Awake()
     {
-       if( isUser() ) //ES-2023.11.25_EnemyBehavior
-       {        
+        if (isUser()) //ES-2023.11.25_EnemyBehavior
+        {
+            cameras = GameObject.Find("Cameras").GetComponent<Cameras>();
+
             inputActions = new VehicleControls();
             inputActions.Enable();
-            carActions = inputActions.Game;
-            inputActions.Game.GearUp.performed += OnGearUp;
-            inputActions.Game.GearDown.performed += OnGearDown;
-       }
-       
-       sphereCollider = rigidBody.GetOrAddComponent<SphereCollider>();       
-          
+            carActions = inputActions.Player3;
+            inputActions.Player3.GearUp.performed += OnGearUp;
+            inputActions.Player3.GearDown.performed += OnGearDown;
+            inputActions.Player3.ChangeCamera.performed += cameras.OnChangeCamera;
+
+
+        }
+
+        sphereCollider = rigidBody.GetOrAddComponent<SphereCollider>();
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
+
         visual.Translate(0f, -sphereCollider.radius, 0f);
         accelBkp = accelForce;
 
@@ -95,24 +102,30 @@ public class Car : MonoBehaviour, IVehicle
         }
 
         //ES-2023.11.25_EnemyBehavior
-            wayPoints = GameObject.FindGameObjectWithTag("Path").GetComponent<TrackWaypoints>();
-            currentWaypoint = gameObject.transform;       
-            nodes = wayPoints.nodes;
+        wayPoints = GameObject.FindGameObjectWithTag("Path").GetComponent<TrackWaypoints>();
+        currentWaypoint = gameObject.transform;
+        nodes = wayPoints.nodes;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if( isUser() ) //ES-2023.11.25_EnemyBehavior
+        if (isUser()) //ES-2023.11.25_EnemyBehavior
             Steer();
         else
             AIDrive();
+
+        if (inputActions.Player3.Brake.IsPressed())
+            cameras.ReverseCamera();
+        else
+            cameras.NormalCamera();
+
 
         transform.position = rigidBody.position;
     }
 
     private void FixedUpdate()
-    {  
+    {
         maxVelocity = currentGear switch
         {
             Gears.Gear1 => gearsMaxVelocities[0],
@@ -124,13 +137,13 @@ public class Car : MonoBehaviour, IVehicle
         };
 
         //ES-2023.11.25_EnemyBehavior
-       if( isUser() ) Movement();
-            //Debug.Log("m/s: " + rigidBody.velocity.magnitude);
-       else
-       {
+        if (isUser()) Movement();
+        //Debug.Log("m/s: " + rigidBody.velocity.magnitude);
+        else
+        {
             AIMovement();
             Shifter();
-       }        
+        }
     }
 
     private void OnGUI()
@@ -241,23 +254,23 @@ public class Car : MonoBehaviour, IVehicle
         return Mathf.Clamp(((1 / (b - a)) * x) + (a / (a - b)), 1 / ((int)currentGear * (int)currentGear * (int)currentGear * (int)currentGear), (int)currentGear * maxSpeedFactor);
     }
 
-//---------------------------------------------------------------------------------------------------
+    //---------------------------------------------------------------------------------------------------
 
-   private void AIDrive()
+    private void AIDrive()
     {
-        CalculateDistanceOfWaypoints();        
+        CalculateDistanceOfWaypoints();
         AISteer();
     }
 
-   private void AISteer()
+    private void AISteer()
     {
         Vector3 relative = transform.InverseTransformPoint(currentWaypoint.transform.position);
         relative /= relative.magnitude;
 
         horizontal = (relative.x / relative.magnitude) * steerForce;
 
-            carRotation = Mathf.Lerp(carRotation, horizontal, carRotationSpeed * Time.deltaTime);
-            transform.Rotate(transform.up, carRotation * turnSpeed * normalizedForwardMovement * Time.deltaTime);
+        carRotation = Mathf.Lerp(carRotation, horizontal, carRotationSpeed * Time.deltaTime);
+        transform.Rotate(transform.up, carRotation * turnSpeed * normalizedForwardMovement * Time.deltaTime);
 
     }
 
@@ -267,20 +280,25 @@ public class Car : MonoBehaviour, IVehicle
         Vector3 position = gameObject.transform.position;
         float distance = Mathf.Infinity;
 
-        for (int i = 0; i < nodes.Count; i++) {
+        for (int i = 0; i < nodes.Count; i++)
+        {
             Vector3 difference = nodes[i].transform.position - position;
             float currentDistance = difference.magnitude;
-            if (currentDistance < distance) {
-                if ((i + distanceOffset) >= nodes.Count) {
+            if (currentDistance < distance)
+            {
+                if ((i + distanceOffset) >= nodes.Count)
+                {
                     currentWaypoint = nodes[1];
                     distance = currentDistance;
-                } else {
+                }
+                else
+                {
                     currentWaypoint = nodes[i + distanceOffset];
                     distance = currentDistance;
                 }
                 currentNode = i;
             }
-            
+
         }
     }
 
@@ -300,7 +318,7 @@ public class Car : MonoBehaviour, IVehicle
         {
 
             rigidBody.AddForce(transform.forward * enginePowerAI.Evaluate(VelocityFromGearRange((sf / 3.6f) / (maxVelocity / 3.6f))) * accelForce * accelerationAI, ForceMode.Acceleration);
-            
+
             rigidBody.AddForce(-transform.forward * brakeForce * brakPower, ForceMode.Acceleration);
             rigidBody.AddForce(-transform.right * Mathf.Abs(speedLateral * lateralFriction) * Mathf.Sign(speedLateral), ForceMode.Acceleration);
             rigidBody.AddForce(-transform.forward * Mathf.Min(Mathf.Abs(speedForward), forwardFriction) * Mathf.Sign(speedForward), ForceMode.Acceleration);
@@ -315,9 +333,9 @@ public class Car : MonoBehaviour, IVehicle
             Quaternion targetRotation = Quaternion.LookRotation(fwd, hit.normal);
             visual.rotation = Quaternion.Lerp(visual.rotation, targetRotation, carRotationSpeed * 2f * Time.deltaTime);
 
-        
+
         }
-                KPH = rigidBody.velocity.magnitude * 3.6f;
+        KPH = rigidBody.velocity.magnitude * 3.6f;
     }
 
     private void BrakeVehicle()
@@ -327,35 +345,44 @@ public class Car : MonoBehaviour, IVehicle
     }
 
 
-   private void Shifter(){
+    private void Shifter()
+    {
 
-        if(!grounded)return;
-                   // Debug.Log("KPH: " + KPH + " |maxVelocity: " + maxVelocity + " | minVelocity: " + minRPM + "  " + gearsMaxVelocities[(int)currentGear]);
-        if(KPH > maxVelocity  && currentGear < Gears.Gear5 )
+        if (!grounded) return;
+        // Debug.Log("KPH: " + KPH + " |maxVelocity: " + maxVelocity + " | minVelocity: " + minRPM + "  " + gearsMaxVelocities[(int)currentGear]);
+        if (KPH > maxVelocity && currentGear < Gears.Gear5)
         {
-            minRPM= maxVelocity;
-            currentGear ++;
+            minRPM = maxVelocity;
+            currentGear++;
             return;
         }
 
-        if(KPH < minRPM && currentGear > Gears.Gear1){
-            if (currentGear -1 == Gears.Gear1) minRPM =0;
-            else minRPM = gearsMaxVelocities[(int)currentGear-2];
+        if (KPH < minRPM && currentGear > Gears.Gear1)
+        {
+            if (currentGear - 1 == Gears.Gear1) minRPM = 0;
+            else minRPM = gearsMaxVelocities[(int)currentGear - 2];
 
-            currentGear --;
+            currentGear--;
         }
     }
 
     public bool isUser()
     {
-       if( driverController == driver.User ) return true;
-       else return false;
+        if (driverController == driver.User) return true;
+        else return false;
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.magenta;            
-        Gizmos.DrawWireSphere(currentWaypoint.position, 3);        
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawWireSphere(currentWaypoint.position, 3);
+    }
+
+    private void OnDisable()
+    {
+        inputActions.Player3.GearUp.performed -= OnGearUp;
+        inputActions.Player3.GearDown.performed -= OnGearDown;
+        inputActions.Player3.ChangeCamera.performed -= cameras.OnChangeCamera;
     }
 
 }

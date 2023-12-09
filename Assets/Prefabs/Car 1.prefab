@@ -177,6 +177,7 @@ MonoBehaviour:
   - {fileID: 625853136401133353}
   - {fileID: 6130411127668226082}
   rigidBody: {fileID: 0}
+  car: {fileID: 0}
 --- !u!1 &2238630005088910230
 GameObject:
   m_ObjectHideFlags: 0
