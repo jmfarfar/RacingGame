@@ -618,7 +618,7 @@ public partial class @VehicleControls: IInputActionCollection2, IDisposable
                     ""name"": ""Brake"",
                     ""type"": ""Value"",
                     ""id"": ""b5b3a5c3-3e49-4477-b544-c60368d6ac33"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true

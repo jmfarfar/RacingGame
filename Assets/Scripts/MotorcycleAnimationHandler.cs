@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class MotorcycleAnimationHandler : MonoBehaviour
 {
     VehicleControls inputActions;
-    VehicleControls.Player2Actions actions;
+    VehicleControls.Player4Actions actions;
     private Animator animator;
     [SerializeField] private Rigidbody rigidbodyObject;
     [SerializeField] private Renderer tireRenderer;
@@ -22,7 +22,7 @@ public class MotorcycleAnimationHandler : MonoBehaviour
     {
         inputActions = new VehicleControls();
         inputActions.Enable();
-        actions = inputActions.Player2;
+        actions = inputActions.Player4;
         animator = GetComponent<Animator>();
     }
     //

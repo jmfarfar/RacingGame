@@ -73,7 +73,7 @@ public class Car : MonoBehaviour, IVehicle
     {
         if (isUser()) //ES-2023.11.25_EnemyBehavior
         {
-            cameras = GameObject.Find("Cameras").GetComponent<Cameras>();
+            cameras = GetComponentInChildren<Cameras>();
 
             inputActions = new VehicleControls();
             inputActions.Enable();
@@ -111,15 +111,15 @@ public class Car : MonoBehaviour, IVehicle
     void Update()
     {
         if (isUser()) //ES-2023.11.25_EnemyBehavior
+        {
             Steer();
+            if (inputActions.Player3.Brake.IsPressed())
+                cameras.ReverseCamera();
+            else
+                cameras.NormalCamera();
+        }
         else
             AIDrive();
-
-        if (inputActions.Player3.Brake.IsPressed())
-            cameras.ReverseCamera();
-        else
-            cameras.NormalCamera();
-
 
         transform.position = rigidBody.position;
     }
@@ -368,8 +368,7 @@ public class Car : MonoBehaviour, IVehicle
 
     public bool isUser()
     {
-        if (driverController == driver.User) return true;
-        else return false;
+        return driverController == driver.User;
     }
 
     private void OnDrawGizmos()
@@ -380,9 +379,13 @@ public class Car : MonoBehaviour, IVehicle
 
     private void OnDisable()
     {
-        inputActions.Player3.GearUp.performed -= OnGearUp;
-        inputActions.Player3.GearDown.performed -= OnGearDown;
-        inputActions.Player3.ChangeCamera.performed -= cameras.OnChangeCamera;
+        if (isUser())
+        {
+            inputActions.Player3.GearUp.performed -= OnGearUp;
+            inputActions.Player3.GearDown.performed -= OnGearDown;
+            inputActions.Player3.ChangeCamera.performed -= cameras.OnChangeCamera;
+
+        }
     }
 
 }

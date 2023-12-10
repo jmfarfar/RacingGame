@@ -68,7 +68,7 @@ public class Motorcycle : MonoBehaviour, IVehicle
     {
         if (isUser()) //ES-2023.11.25_EnemyBehavior
         {
-            cameras = GameObject.Find("Cameras").GetComponent<Cameras>();
+            cameras = GetComponentInChildren<Cameras>();
 
             inputActions = new VehicleControls();
             inputActions.Enable();
@@ -107,16 +107,19 @@ public class Motorcycle : MonoBehaviour, IVehicle
     void Update()
     {
         if (isUser()) //ES-2023.11.25_EnemyBehavior
+        {
             Steer();
+            if (inputActions.Player4.Brake.IsPressed())
+                cameras.ReverseCamera();
+            else
+                cameras.NormalCamera();
+
+        }
         else
             AIDrive();
 
         transform.position = rigidBody.position;
 
-        if (inputActions.Player4.Brake.IsPressed())
-            cameras.ReverseCamera();
-        else
-            cameras.NormalCamera();
 
     }
 

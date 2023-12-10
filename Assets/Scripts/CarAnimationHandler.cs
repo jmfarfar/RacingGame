@@ -12,7 +12,7 @@ public class CarAnimationHandler : MonoBehaviour
     [SerializeField] private Rigidbody rigidBody;
     private float diameter = 0.78f;
     VehicleControls inputActions;
-    VehicleControls.GameActions actions;
+    VehicleControls.Player3Actions actions;
 
 //ES-2023.11.25_EnemyBehavior
     public Car car;
@@ -22,7 +22,7 @@ public class CarAnimationHandler : MonoBehaviour
     {
         inputActions = new VehicleControls();
         inputActions.Enable();
-        actions = inputActions.Game;
+        actions = inputActions.Player3;
 
     }
 
