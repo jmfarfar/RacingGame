@@ -7,18 +7,12 @@ using UnityEngine.InputSystem;
 public class CarAnimationHandler : MonoBehaviour
 {
 
-    //[SerializeField] private Transform backTireR;
-    //[SerializeField] private Transform backTireL;
-    //[SerializeField] private Transform frontTireR;
-    //[SerializeField] private Transform frontTireL;
-
     [SerializeField] private List<Transform> tires = new List<Transform>();
     [SerializeField] private List<Transform> parentTires = new List<Transform>();
     [SerializeField] private Rigidbody rigidBody;
     private float diameter = 0.78f;
     VehicleControls inputActions;
-    VehicleControls.GameActions actions;
-    //float speedForward = 0f;
+    VehicleControls.Player3Actions actions;
 
 //ES-2023.11.25_EnemyBehavior
     public Car car;
@@ -28,11 +22,10 @@ public class CarAnimationHandler : MonoBehaviour
     {
         inputActions = new VehicleControls();
         inputActions.Enable();
-        actions = inputActions.Game;
+        actions = inputActions.Player3;
 
     }
 
-    // Update is called once per frame
     void Update()
     {
         var speedForward = Vector3.Dot(rigidBody.velocity, transform.forward);
@@ -40,7 +33,7 @@ public class CarAnimationHandler : MonoBehaviour
         for (int i = 0; i < tires.Count; i++)
         {
             tires[i].Rotate(speedForward * Time.deltaTime * 180f, 0f, 0f);
-            
+
         }
 
         for (int i = 0; i < parentTires.Count; i++)

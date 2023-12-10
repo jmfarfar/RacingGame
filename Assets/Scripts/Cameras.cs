@@ -1,4 +1,5 @@
 using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +12,8 @@ public class Cameras : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera reverseCamera;
 
     private VehicleControls inputActions;
-    private VehicleControls.GameActions actions;
+    private VehicleControls.Player3Actions actionsP3;
+    private VehicleControls.Player4Actions actionsP4;
     private int currentCamera = 0;
 
     // Start is called before the first frame update
@@ -19,26 +21,38 @@ public class Cameras : MonoBehaviour
     {
         inputActions = new VehicleControls();
         inputActions.Enable();
-        actions = inputActions.Game;
-        inputActions.Game.ChangeCamera.performed += OnChangeCamera;
+        //actionsP3 = inputActions.Player3;
+        //actionsP4 = inputActions.Player4;
+        //inputActions.Player3.ChangeCamera.performed += OnChangeCamera;
+        //inputActions.Player4.ChangeCamera.performed += OnChangeCamera;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (inputActions.Game.Brake.IsPressed())
-        {
-            reverseCamera.MoveToTopOfPrioritySubqueue();
-        }
-        else
-        {
-            virtualCameras[currentCamera].MoveToTopOfPrioritySubqueue();
-        }
+        //if (inputActions.Player3.Brake.IsPressed())
+        //{
+        //    reverseCamera.MoveToTopOfPrioritySubqueue();
+        //}
+        //else
+        //{
+        //    virtualCameras[currentCamera].MoveToTopOfPrioritySubqueue();
+        //}
     }
 
-    void OnChangeCamera(InputAction.CallbackContext context)
+    public void ReverseCamera()
     {
-        if (currentCamera < virtualCameras.Count-1)
+        reverseCamera.MoveToTopOfPrioritySubqueue();
+    }
+
+    public void NormalCamera()
+    {
+        virtualCameras[currentCamera].MoveToTopOfPrioritySubqueue();
+    }
+
+    public void OnChangeCamera(InputAction.CallbackContext context)
+    {
+        if (currentCamera < virtualCameras.Count - 1)
         {
             currentCamera++;
             virtualCameras[currentCamera].MoveToTopOfPrioritySubqueue();
