@@ -28,10 +28,11 @@ public class Gravity : MonoBehaviour
     private void FixedUpdate()
     {
 
-        ray = new Ray(rb.position, -visualTrans.up * 5f);
-        if (mesh.Raycast(ray, out RaycastHit hitInfo, 10f))
+        ray = new Ray(rb.position + transform.forward, -visualTrans.up);
+        if (mesh.Raycast(ray, out RaycastHit hitInfo, 50f))
         {
-            rb.AddForce(-hitInfo.normal, ForceMode.Acceleration);    
+            //rb.AddForce(-hitInfo.normal, ForceMode.VelocityChange);
+            rb.velocity += -hitInfo.normal * Time.deltaTime * gravityMagnitude;
         }
 
         //Vector3 vectorToSurface = (mesh.ClosestPoint(rb.position) - rb.position).normalized;
