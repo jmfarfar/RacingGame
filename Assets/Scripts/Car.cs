@@ -110,16 +110,16 @@ public class Car : MonoBehaviour, IVehicle
     // Update is called once per frame
     void Update()
     {
-        if (isUser()) //ES-2023.11.25_EnemyBehavior
-        {
-            Steer();
-            if (inputActions.Player3.Brake.IsPressed())
-                cameras.ReverseCamera();
-            else
-                cameras.NormalCamera();
-        }
-        else
-            AIDrive();
+        // if (isUser()) //ES-2023.11.25_EnemyBehavior
+        // {
+        //     Steer();
+        //     if (inputActions.Player3.Brake.IsPressed())
+        //         cameras.ReverseCamera();
+        //     else
+        //         cameras.NormalCamera();
+        // }
+        // else
+        //     AIDrive();
 
         transform.position = rigidBody.position;
     }
@@ -137,12 +137,21 @@ public class Car : MonoBehaviour, IVehicle
         };
 
         //ES-2023.11.25_EnemyBehavior
-        if (isUser()) Movement();
+        if (isUser())
+        {
+            Movement();
+            Steer();
+            if (inputActions.Player3.Brake.IsPressed())
+                cameras.ReverseCamera();
+            else
+                cameras.NormalCamera();
+        }
         //Debug.Log("m/s: " + rigidBody.velocity.magnitude);
         else
         {
             AIMovement();
             Shifter();
+            AIDrive();
         }
     }
 
@@ -236,7 +245,7 @@ public class Car : MonoBehaviour, IVehicle
         if (grounded)
         {
             carRotation = Mathf.Lerp(carRotation, carActions.Steer.ReadValue<float>(), carRotationSpeed * Time.deltaTime);
-            transform.Rotate(transform.up, carRotation * turnSpeed * normalizedForwardMovement * Time.deltaTime);
+            transform.Rotate(0f, carRotation * turnSpeed * normalizedForwardMovement * Time.deltaTime, 0f);
 
             if (carActions.Drift.IsPressed())
                 Drift();
