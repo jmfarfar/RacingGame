@@ -206,7 +206,7 @@ public class Car : MonoBehaviour, IVehicle
 
         normalizedForwardMovement = Mathf.Clamp(speedForward / 30f, -1f, 1f);
 
-        grounded = Physics.SphereCast(rigidBody.position + transform.up * 0.1f, sphereCollider.radius, -transform.up, out var hit, 0.2f);
+        grounded = Physics.SphereCast(rigidBody.position + transform.up * 0.1f, sphereCollider.radius, -transform.up, out var hit, 2f);
         if (grounded)
         {
             if (carActions.Turbo.IsPressed() && !nitro.NitroDepleted)
@@ -226,7 +226,7 @@ public class Car : MonoBehaviour, IVehicle
 
             var fwd = Vector3.Cross(transform.right, hit.normal);
             Quaternion targetRotation = Quaternion.LookRotation(fwd, hit.normal);
-            visual.rotation = Quaternion.Lerp(visual.rotation, targetRotation, carRotationSpeed * 2f * Time.deltaTime);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, carRotationSpeed * 2f * Time.deltaTime);
 
         }
     }

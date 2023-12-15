@@ -8,4 +8,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Development/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/Development/JR_MainMenu.unity
+    guid: 92d00ba941a7217418bd575eadb522ca
+  - enabled: 1
+    path: Assets/Scenes/Development/JR_VehicleSelection.unity
+    guid: 24146a41570c9704ab3205f64687299e
+  - enabled: 1
+    path: Assets/Scenes/Development/DesertTerrainTests.unity
+    guid: c7151bc82631745de830344c5370a863
+  - enabled: 1
+    path: Assets/Scenes/Development/MotorcycleSetup.unity
+    guid: 915c6b89513d7ec4e8ed6f4ab2826b1c
   m_configObjects: {}

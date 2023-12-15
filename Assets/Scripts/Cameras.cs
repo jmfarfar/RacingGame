@@ -2,18 +2,20 @@ using Cinemachine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Cameras : MonoBehaviour
 {
+    [SerializeField] private Camera p1Camera;
+    [SerializeField] private Camera p2Camera;
     [SerializeField] private CinemachineBrain cineBrain;
     [SerializeField] private List<CinemachineVirtualCamera> virtualCameras;
     [SerializeField] private CinemachineVirtualCamera reverseCamera;
 
     private VehicleControls inputActions;
-    private VehicleControls.Player3Actions actionsP3;
-    private VehicleControls.Player4Actions actionsP4;
     private int currentCamera = 0;
 
     // Start is called before the first frame update
@@ -21,23 +23,17 @@ public class Cameras : MonoBehaviour
     {
         inputActions = new VehicleControls();
         inputActions.Enable();
-        //actionsP3 = inputActions.Player3;
-        //actionsP4 = inputActions.Player4;
-        //inputActions.Player3.ChangeCamera.performed += OnChangeCamera;
-        //inputActions.Player4.ChangeCamera.performed += OnChangeCamera;
+        GameManager.OnGameModeSelected += ResizeForTwoPlayers;
+    }
+
+    private void Start()
+    {
     }
 
     // Update is called once per frame
     void Update()
     {
-        //if (inputActions.Player3.Brake.IsPressed())
-        //{
-        //    reverseCamera.MoveToTopOfPrioritySubqueue();
-        //}
-        //else
-        //{
-        //    virtualCameras[currentCamera].MoveToTopOfPrioritySubqueue();
-        //}
+
     }
 
     public void ReverseCamera()
@@ -66,4 +62,15 @@ public class Cameras : MonoBehaviour
 
     }
 
+    public void ResizeForTwoPlayers()
+    {
+        p1Camera.rect = new Rect(0f, 0.5f, 1f, 1f);
+        p2Camera.gameObject.SetActive(true);
+        p2Camera.rect = new Rect(0f, 0f, 1f, 0.5f);
+    }
+
+    private void OnDisable()
+    {
+        GameManager.OnGameModeSelected -= ResizeForTwoPlayers;
+    }
 }

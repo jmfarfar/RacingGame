@@ -503,7 +503,7 @@ Camera:
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
-    y: 0
+    y: 0.5
     width: 1
     height: 1
   near clip plane: 0.3
@@ -930,6 +930,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f80be9192411c6244a518fc49b941de6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  p1Camera: {fileID: 0}
+  p2Camera: {fileID: 0}
   cineBrain: {fileID: 7232687395606208158}
   virtualCameras:
   - {fileID: 6559551698497077146}
