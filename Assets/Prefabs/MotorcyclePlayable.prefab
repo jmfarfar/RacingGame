@@ -48,6 +48,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f80be9192411c6244a518fc49b941de6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  p1Camera: {fileID: 0}
+  p2Camera: {fileID: 0}
   cineBrain: {fileID: 5142749760316739176}
   virtualCameras:
   - {fileID: 6354923177414155777}
@@ -556,7 +558,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7317725664383285896}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.2317279, y: -0.0000000018402275, z: 4.3836343e-10, w: 0.97278064}
+  m_LocalRotation: {x: 0.23172794, y: 0.00000005617122, z: -0.000000013380654, w: 0.97278064}
   m_LocalPosition: {x: 0, y: 2.19, z: -1.72}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -781,7 +783,7 @@ GameObject:
   - component: {fileID: 6684631753751797070}
   - component: {fileID: 4949448670458336713}
   m_Layer: 0
-  m_Name: Player2
+  m_Name: MotorcyclePlayable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -811,7 +813,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8546778095711617498}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
@@ -845,6 +847,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1540936330559175412}
   - component: {fileID: 7038265208972598157}
+  - component: {fileID: 429111813260665630}
+  - component: {fileID: 1295688646037345330}
   m_Layer: 0
   m_Name: Motorcycle
   m_TagString: Untagged
@@ -941,6 +945,53 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &429111813260665630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8801995022301571242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: becbdbffaf93f6d4daa4754e80cf1d79,
+    type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player4
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 8156084148570058536}
+--- !u!114 &1295688646037345330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8801995022301571242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5935ff1bef706aa42a9918bd7ca0b595, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visualTrans: {fileID: 7705292140191503086}
+  rb: {fileID: 6487030671989504958}
+  gravityMagnitude: 100
+  mesh: {fileID: 0}
 --- !u!1 &8944990200993492208
 GameObject:
   m_ObjectHideFlags: 0
@@ -969,7 +1020,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8944990200993492208}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.2317279, y: -0.0000000018402275, z: 4.3836343e-10, w: 0.97278064}
+  m_LocalRotation: {x: 0.23172794, y: 0.00000005617122, z: -0.000000013380654, w: 0.97278064}
   m_LocalPosition: {x: 0, y: 2.19, z: -1.72}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
