@@ -10,6 +10,7 @@ public class SaveManager_Car : MonoBehaviour
 
     //What we want to save
     public int currentCar;
+    public Material[] carMaterial;
 
     private void Awake()
     {

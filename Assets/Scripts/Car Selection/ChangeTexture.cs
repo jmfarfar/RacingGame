@@ -8,11 +8,14 @@ public class ChangeTexture : MonoBehaviour
     Material currMat;
     Renderer renderer;
 
+    private StoreMaterials storeMaterials;
+
 
     // Start is called before the first frame update
     void Start()
     {
         renderer = this.GetComponent<Renderer>();
+        storeMaterials = FindAnyObjectByType<StoreMaterials>();
     }
 
         // Update is called once per frame
@@ -21,27 +24,25 @@ public class ChangeTexture : MonoBehaviour
         
     }
 
-    public void whiteColor()
+    public void purpleColor()
     {
-        renderer.material = BodyColor[0];
-        currMat = renderer.material;
+        renderer.sharedMaterial = BodyColor[0];
+        currMat = renderer.sharedMaterial;
+        storeMaterials.Store();
     }
 
-    public void orangeColor()
+    public void greenColor()
     {
-        renderer.material = BodyColor[1];
-        currMat = renderer.material;
+        renderer.sharedMaterial = BodyColor[1];
+        currMat = renderer.sharedMaterial;
+        storeMaterials.Store();
     }
 
-    public void violetColor()
+    public void blackColor()
     {
-        renderer.material = BodyColor[2];
-        currMat = renderer.material;
+        renderer.sharedMaterial = BodyColor[2];
+        currMat = renderer.sharedMaterial;
+        storeMaterials.Store();
     }
 
-    public void redColor()
-    {
-        renderer.material = BodyColor[3];
-        currMat = renderer.material;
-    }
 }
