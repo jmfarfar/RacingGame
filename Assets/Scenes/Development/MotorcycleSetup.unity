@@ -454,8 +454,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   players:
-  - {fileID: 6335428759642802645, guid: 14629e4f73f487843a4ecfb30c107597, type: 3}
-  - {fileID: 8546778095711617498, guid: aef6137260659724c8ea175637852abf, type: 3}
+  - {fileID: 4034874506630989625, guid: c7d07176a9a70d54ba4f6ac9666f175d, type: 3}
+  - {fileID: 8269333233553773238, guid: f9e99e6d6870fc441b6ee17e16c6ffd3, type: 3}
 --- !u!1 &808073302
 GameObject:
   m_ObjectHideFlags: 0
@@ -1051,8 +1051,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f80be9192411c6244a518fc49b941de6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  p1Camera: {fileID: 994814587}
-  p2Camera: {fileID: 273536652}
+  p1Camera: {fileID: 0}
+  p2Camera: {fileID: 0}
   cineBrain: {fileID: 0}
   virtualCameras: []
   reverseCamera: {fileID: 0}

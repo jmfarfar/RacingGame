@@ -37,18 +37,9 @@ public class Car : MonoBehaviour, IVehicle
     public float maxVelocity;
     public Nitro nitro;
 
-    PlayerInput playerInput;
-    InputAction brakeAction;
-    InputAction accelerateAction;
-    InputAction steerAction;
-    InputAction gearUpAction;
-    InputAction gearDownAction;
-    InputAction turboAction;
-    InputAction driftAction;
-
     private SphereCollider sphereCollider;
-    //private VehicleControls inputActions;
-    //private VehicleControls.Player3Actions carActions;
+    private VehicleControls inputActions;
+    private VehicleControls.Player3Actions carActions;
     private bool grounded;
     private float carRotation = 0f;
     [SerializeField] private float carRotationSpeed;
@@ -84,12 +75,12 @@ public class Car : MonoBehaviour, IVehicle
         {
             cameras = GetComponentInChildren<Cameras>();
 
-            //inputActions = new VehicleControls();
-            //inputActions.Enable();
-            //carActions = inputActions.Player3;
-            //inputActions.Player3.GearUp.performed += OnGearUp;
-            //inputActions.Player3.GearDown.performed += OnGearDown;
-            //inputActions.Player3.ChangeCamera.performed += cameras.OnChangeCamera;
+            inputActions = new VehicleControls();
+            inputActions.Enable();
+            carActions = inputActions.Player3;
+            inputActions.Player3.GearUp.performed += OnGearUp;
+            inputActions.Player3.GearDown.performed += OnGearDown;
+            inputActions.Player3.ChangeCamera.performed += cameras.OnChangeCamera;
 
 
         }
@@ -134,20 +125,20 @@ public class Car : MonoBehaviour, IVehicle
         //    AIDrive();
         //}
 
-        if (playerInput == null)
-        {
-            playerInput = GetComponent<PlayerInput>();
+        //if (playerInput == null)
+        //{
+        //    playerInput = GetComponent<PlayerInput>();
 
-            brakeAction = playerInput.actions["Brake"];
-            accelerateAction = playerInput.actions["Accelerate"];
-            steerAction = playerInput.actions["Steer"];
-            driftAction = playerInput.actions["Drift"];
-            gearUpAction = playerInput.actions["GearUp"];
-            gearDownAction = playerInput.actions["GearDown"];
-            turboAction = playerInput.actions["Turbo"];
+        //    brakeAction = playerInput.actions["Brake"];
+        //    accelerateAction = playerInput.actions["Accelerate"];
+        //    steerAction = playerInput.actions["Steer"];
+        //    driftAction = playerInput.actions["Drift"];
+        //    gearUpAction = playerInput.actions["GearUp"];
+        //    gearDownAction = playerInput.actions["GearDown"];
+        //    turboAction = playerInput.actions["Turbo"];
 
 
-        }
+        //}
 
         transform.position = rigidBody.position;
     }
@@ -169,10 +160,10 @@ public class Car : MonoBehaviour, IVehicle
         {
             Movement();
             Steer();
-            //if (inputActions.Player3.Brake.IsPressed())
-            //    cameras.ReverseCamera();
-            //else
-            //    cameras.NormalCamera();
+            if (inputActions.Player3.Brake.IsPressed())
+                cameras.ReverseCamera();
+            else
+                cameras.NormalCamera();
         }
         //Debug.Log("m/s: " + rigidBody.velocity.magnitude);
         else
@@ -183,14 +174,14 @@ public class Car : MonoBehaviour, IVehicle
         }
     }
 
-    public void OnBrake(InputValue value)
-    {
-        if(value.isPressed)
-            cameras.ReverseCamera();
-        else 
-            cameras.NormalCamera();
+    //public void OnBrake(InputValue value)
+    //{
+    //    if(value.isPressed)
+    //        cameras.ReverseCamera();
+    //    else 
+    //        cameras.NormalCamera();
 
-    }
+    //}
 
     private void OnGUI()
     {
@@ -205,7 +196,7 @@ public class Car : MonoBehaviour, IVehicle
         GUI.Label(new Rect(300, 300, 600, 100), "Velocity Normalized: " + (sf / 3.6f) / (maxVelocity / 3.6f), fontSize);
     }
 
-    public void OnGearUp()
+    public void OnGearUp(InputAction.CallbackContext context)
     {
         if (currentGear < Gears.Gear5)
         {
@@ -214,7 +205,7 @@ public class Car : MonoBehaviour, IVehicle
         }
     }
 
-    public void OnGearDown()
+    public void OnGearDown(InputAction.CallbackContext context)
     {
         if (currentGear > Gears.Gear1)
         {
@@ -250,7 +241,7 @@ public class Car : MonoBehaviour, IVehicle
     public void ActivateTurbo()
     {
         nitro.ConsumeNitroBar(10f);
-        rigidBody.AddForce(transform.forward * turbo * acceleration.Evaluate(VelocityFromGearRange((sf / 3.6f) / (maxVelocity / 3.6f))) * accelForce * accelerateAction.ReadValue<float>(), ForceMode.Acceleration);
+        rigidBody.AddForce(transform.forward * turbo * acceleration.Evaluate(VelocityFromGearRange((sf / 3.6f) / (maxVelocity / 3.6f))) * accelForce * carActions.Accelerate.ReadValue<float>(), ForceMode.Acceleration);
 
     }
 
@@ -266,12 +257,12 @@ public class Car : MonoBehaviour, IVehicle
         grounded = Physics.SphereCast(rigidBody.position + transform.up * 0.1f, sphereCollider.radius, -transform.up, out var hit, 2f);
         if (grounded)
         {
-            if (turboAction.triggered && !nitro.NitroDepleted)
+            if (carActions.Turbo.IsPressed() && !nitro.NitroDepleted)
                 ActivateTurbo();
             else
-                rigidBody.AddForce(transform.forward * acceleration.Evaluate(VelocityFromGearRange((sf / 3.6f) / (maxVelocity / 3.6f))) * accelForce * accelerateAction.ReadValue<float>(), ForceMode.Acceleration);
+                rigidBody.AddForce(transform.forward * acceleration.Evaluate(VelocityFromGearRange((sf / 3.6f) / (maxVelocity / 3.6f))) * accelForce * carActions.Accelerate.ReadValue<float>(), ForceMode.Acceleration);
 
-            rigidBody.AddForce(-transform.forward * brakeForce * brakeAction.ReadValue<float>(), ForceMode.Acceleration);
+            rigidBody.AddForce(-transform.forward * brakeForce * carActions.Brake.ReadValue<float>(), ForceMode.Acceleration);
             rigidBody.AddForce(-transform.right * Mathf.Abs(speedLateral * lateralFriction) * Mathf.Sign(speedLateral), ForceMode.Acceleration);
             rigidBody.AddForce(-transform.forward * Mathf.Min(Mathf.Abs(speedForward), forwardFriction) * Mathf.Sign(speedForward), ForceMode.Acceleration);
 
@@ -292,10 +283,10 @@ public class Car : MonoBehaviour, IVehicle
     {
         if (grounded)
         {
-            carRotation = Mathf.Lerp(carRotation, steerAction.ReadValue<float>(), carRotationSpeed * Time.deltaTime);
+            carRotation = Mathf.Lerp(carRotation, carActions.Steer.ReadValue<float>(), carRotationSpeed * Time.deltaTime);
             transform.Rotate(0f, carRotation * turnSpeed * normalizedForwardMovement * Time.deltaTime, 0f);
 
-            if (driftAction.triggered)
+            if (carActions.Drift.IsPressed())
                 Drift();
             else
                 RecoverTraction();
