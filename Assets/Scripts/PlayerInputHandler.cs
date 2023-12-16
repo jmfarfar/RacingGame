@@ -14,9 +14,17 @@ public class PlayerInputHandler : MonoBehaviour
     InputAction joinAction;
     bool player2Selected;
 
+    
+
     // Start is called before the first frame update
     void Start()
     {
+        var joysticks = Input.GetJoystickNames();
+        foreach (var gamepad in joysticks)
+        {
+            Debug.Log("Gamepad: " + gamepad);
+        }
+
         vehicleControls = new VehicleControls();
         vehicleControls.Enable();
         pim = GetComponent<PlayerInputManager>();
@@ -28,7 +36,7 @@ public class PlayerInputHandler : MonoBehaviour
 
         if (PlayerPrefs.GetString("GameMode").Equals("2Players"))
         {
-            //for (int i = 0; i < 2; i++)
+            //for (int i = 0; i < players.Count; i++)
             //{
             //    PlayerVehicle selection = PlayerPrefs.GetString($"player{i + 1}") switch
             //    {
@@ -57,12 +65,31 @@ public class PlayerInputHandler : MonoBehaviour
                 _ => throw new PlayerPrefsException("Data not recognized for P2")
             };
 
+            players[(int)selection1P].GetComponent<PlayerInput>().defaultActionMap = "Player3";
             players[(int)selection1P].GetComponentInChildren<Camera>().rect = new Rect(0f, 0.5f, 1f, 1f);
             pim.playerPrefab = players[(int)selection1P];
             pim.JoinPlayer(0, -1, null, /*InputSystem.devices[2]*/ pairWithDevice: null);
 
+            players[(int)selection2P].GetComponent<PlayerInput>().defaultActionMap = "Player4";
+            players[(int)selection2P].GetComponentInChildren<Camera>().rect = new Rect(0f, 0f, 1f, 0.5f);
             pim.playerPrefab = players[(int)selection2P];
             pim.JoinPlayer(1, -1, null, /*InputSystem.devices[2]*/ pairWithDevice: null);
+            
+        }
+        else
+        {
+            
+
+            PlayerVehicle selection1P = PlayerPrefs.GetString("player1") switch
+            {
+                "Cube" => PlayerVehicle.Car,
+                "Sphere" => PlayerVehicle.Motorcycle,
+                _ => throw new PlayerPrefsException("Data not recognized for P1")
+            };
+
+            players[(int)selection1P].GetComponentInChildren<Camera>().rect = new Rect(0f, 0f, 1f, 1f);
+            pim.playerPrefab = players[(int)selection1P];
+            pim.JoinPlayer(0, -1, null, /*InputSystem.devices[2]*/ pairWithDevice: null);
         }
     }
 

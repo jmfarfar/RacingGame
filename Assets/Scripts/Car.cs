@@ -21,6 +21,7 @@ public class Car : MonoBehaviour, IVehicle
 {
     [Header("Gears Setup")]
     [SerializeField] List<float> gearsMaxVelocities = new List<float>();
+    
 
     [Header("Physics")]
     public Rigidbody rigidBody;
@@ -68,7 +69,6 @@ public class Car : MonoBehaviour, IVehicle
     private float minRPM = 0;
     private Cameras cameras;
 
-
     private void Awake()
     {
         if (isUser()) //ES-2023.11.25_EnemyBehavior
@@ -107,19 +107,38 @@ public class Car : MonoBehaviour, IVehicle
         nodes = wayPoints.nodes;
     }
 
+    
     // Update is called once per frame
     void Update()
     {
-        // if (isUser()) //ES-2023.11.25_EnemyBehavior
-        // {
-        //     Steer();
-        //     if (inputActions.Player3.Brake.IsPressed())
-        //         cameras.ReverseCamera();
-        //     else
-        //         cameras.NormalCamera();
-        // }
-        // else
-        //     AIDrive();
+        //if (isUser()) //ES-2023.11.25_EnemyBehavior
+        //{
+        //    Movement();
+        //    Steer();
+        //    if (inputActions.Player3.Brake.IsPressed())
+        //        cameras.ReverseCamera();
+        //    else
+        //        cameras.NormalCamera();
+        //}
+        //else
+        //{
+        //    AIDrive();
+        //}
+
+        //if (playerInput == null)
+        //{
+        //    playerInput = GetComponent<PlayerInput>();
+
+        //    brakeAction = playerInput.actions["Brake"];
+        //    accelerateAction = playerInput.actions["Accelerate"];
+        //    steerAction = playerInput.actions["Steer"];
+        //    driftAction = playerInput.actions["Drift"];
+        //    gearUpAction = playerInput.actions["GearUp"];
+        //    gearDownAction = playerInput.actions["GearDown"];
+        //    turboAction = playerInput.actions["Turbo"];
+
+
+        //}
 
         transform.position = rigidBody.position;
     }
@@ -137,7 +156,7 @@ public class Car : MonoBehaviour, IVehicle
         };
 
         //ES-2023.11.25_EnemyBehavior
-        if (isUser())
+        if (isUser()) //ES-2023.11.25_EnemyBehavior
         {
             Movement();
             Steer();
@@ -162,6 +181,15 @@ public class Car : MonoBehaviour, IVehicle
         }    
     }
 
+    //public void OnBrake(InputValue value)
+    //{
+    //    if(value.isPressed)
+    //        cameras.ReverseCamera();
+    //    else 
+    //        cameras.NormalCamera();
+
+    //}
+
     private void OnGUI()
     {
         GUIStyle fontSize = new GUIStyle(GUI.skin.GetStyle("label"));
@@ -175,7 +203,7 @@ public class Car : MonoBehaviour, IVehicle
         GUI.Label(new Rect(300, 300, 600, 100), "Velocity Normalized: " + (sf / 3.6f) / (maxVelocity / 3.6f), fontSize);
     }
 
-    void OnGearUp(InputAction.CallbackContext context)
+    public void OnGearUp(InputAction.CallbackContext context)
     {
         if (currentGear < Gears.Gear5)
         {
@@ -184,7 +212,7 @@ public class Car : MonoBehaviour, IVehicle
         }
     }
 
-    void OnGearDown(InputAction.CallbackContext context)
+    public void OnGearDown(InputAction.CallbackContext context)
     {
         if (currentGear > Gears.Gear1)
         {
@@ -192,6 +220,18 @@ public class Car : MonoBehaviour, IVehicle
 
         }
     }
+
+    
+
+    //public void OnSteer(InputValue value)
+    //{
+    //    steerValue = value.Get<float>();
+    //}
+
+    //public void OnDrift(InputValue value)
+    //{
+    //    isDriftPressed = value.isPressed;
+    //}
 
     public void Drift()
     {
@@ -211,7 +251,6 @@ public class Car : MonoBehaviour, IVehicle
         rigidBody.AddForce(transform.forward * turbo * acceleration.Evaluate(VelocityFromGearRange((sf / 3.6f) / (maxVelocity / 3.6f))) * accelForce * carActions.Accelerate.ReadValue<float>(), ForceMode.Acceleration);
 //        meshTrail.ActivateTrail(); //ES-2023.12.06_HUD.-
     }
-
 
     public void Movement()
     {
@@ -398,9 +437,9 @@ public class Car : MonoBehaviour, IVehicle
     {
         if (isUser())
         {
-            inputActions.Player3.GearUp.performed -= OnGearUp;
-            inputActions.Player3.GearDown.performed -= OnGearDown;
-            inputActions.Player3.ChangeCamera.performed -= cameras.OnChangeCamera;
+            //inputActions.Player3.GearUp.performed -= OnGearUp;
+            //inputActions.Player3.GearDown.performed -= OnGearDown;
+            //inputActions.Player3.ChangeCamera.performed -= cameras.OnChangeCamera;
 
         }
     }
