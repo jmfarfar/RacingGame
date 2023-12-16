@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class ChangeTexture : MonoBehaviour
 {
-    public Material[] BodyColor;
+    [System.Serializable]
+    public struct MaterialSets
+    {
+        public Material[] materials;
+    }
+    public MaterialSets[] BodyColor;
     Material currMat;
     Renderer renderer;
 
@@ -14,7 +19,7 @@ public class ChangeTexture : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        renderer = this.GetComponent<Renderer>();
+        renderer = GetComponent<Renderer>();
         storeMaterials = FindAnyObjectByType<StoreMaterials>();
     }
 
@@ -26,21 +31,24 @@ public class ChangeTexture : MonoBehaviour
 
     public void purpleColor()
     {
-        renderer.sharedMaterial = BodyColor[0];
+        if (renderer == null){return;}
+        renderer.sharedMaterials = BodyColor[0].materials;
         currMat = renderer.sharedMaterial;
         storeMaterials.Store();
     }
 
     public void greenColor()
     {
-        renderer.sharedMaterial = BodyColor[1];
+        if (renderer == null){return;}
+        renderer.sharedMaterials = BodyColor[1].materials;
         currMat = renderer.sharedMaterial;
         storeMaterials.Store();
     }
 
     public void blackColor()
     {
-        renderer.sharedMaterial = BodyColor[2];
+        if (renderer == null){return;}
+        renderer.sharedMaterials = BodyColor[2].materials;
         currMat = renderer.sharedMaterial;
         storeMaterials.Store();
     }
