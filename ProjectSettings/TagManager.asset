@@ -5,7 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Path
-  - Track
+  - HUD
   layers:
   - Default
   - TransparentFX
@@ -18,7 +18,7 @@ TagManager:
   - Player1
   - Player2
   - TubularTrack
-  - 
+  - Minimap
   - 
   - 
   - 
