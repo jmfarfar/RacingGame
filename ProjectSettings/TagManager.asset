@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Path
+  - HUD
   layers:
   - Default
   - TransparentFX
@@ -13,10 +15,10 @@ TagManager:
   - UI
   - CarBody
   - CarPhysics
-  - 
-  - 
-  - 
-  - 
+  - Player1
+  - Player2
+  - TubularTrack
+  - Minimap
   - 
   - 
   - 

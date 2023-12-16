@@ -8,7 +8,7 @@ public class Nitro : MonoBehaviour
     [SerializeField] private Image nitroFill;
     [SerializeField] private float maxNitro = 100;
     float currentNitroLevel;
-    float consumeFactor = 20f;
+    //float consumeFactor = 20f;
 
     public bool NitroDepleted { get; set; }
 
@@ -25,7 +25,7 @@ public class Nitro : MonoBehaviour
             NitroDepleted = true;
     }
 
-    public void ConsumeNitroBar()
+    public void ConsumeNitroBar(float consumeFactor)
     {
 
         currentNitroLevel -= consumeFactor * Time.deltaTime;
