@@ -35,7 +35,7 @@ public class Car : MonoBehaviour, IVehicle
     public bool hasItem;
     public AnimationCurve acceleration;
     public float maxVelocity;
-    public Nitro nitro;
+    public HUDManager hudManager;  //ES-2023.12.06_HUD.- Se pasa nitro a HUDManager
 
     private SphereCollider sphereCollider;
     private VehicleControls inputActions;
@@ -172,6 +172,13 @@ public class Car : MonoBehaviour, IVehicle
             Shifter();
             AIDrive();
         }
+
+        //ES-2023.12.06_HUD.-
+        if (isUser())
+        {
+            KPH = rigidBody.velocity.magnitude * 3.6f;
+            hudManager.UpdateSpeedometer(KPH);
+        }    
     }
 
     //public void OnBrake(InputValue value)
@@ -240,9 +247,9 @@ public class Car : MonoBehaviour, IVehicle
 
     public void ActivateTurbo()
     {
-        nitro.ConsumeNitroBar(10f);
+        hudManager.ConsumeNitroBar(20f); //ES-2023.12.06_HUD.-
         rigidBody.AddForce(transform.forward * turbo * acceleration.Evaluate(VelocityFromGearRange((sf / 3.6f) / (maxVelocity / 3.6f))) * accelForce * carActions.Accelerate.ReadValue<float>(), ForceMode.Acceleration);
-
+//        meshTrail.ActivateTrail(); //ES-2023.12.06_HUD.-
     }
 
     public void Movement()
@@ -257,7 +264,7 @@ public class Car : MonoBehaviour, IVehicle
         grounded = Physics.SphereCast(rigidBody.position + transform.up * 0.1f, sphereCollider.radius, -transform.up, out var hit, 2f);
         if (grounded)
         {
-            if (carActions.Turbo.IsPressed() && !nitro.NitroDepleted)
+            if (carActions.Turbo.IsPressed() && !hudManager.NitroDepleted)
                 ActivateTurbo();
             else
                 rigidBody.AddForce(transform.forward * acceleration.Evaluate(VelocityFromGearRange((sf / 3.6f) / (maxVelocity / 3.6f))) * accelForce * carActions.Accelerate.ReadValue<float>(), ForceMode.Acceleration);
@@ -277,6 +284,7 @@ public class Car : MonoBehaviour, IVehicle
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, carRotationSpeed * 2f * Time.deltaTime);
 
         }
+        WarningGearChange(); //ES-2023.12.06_HUD.-
     }
 
     public void Steer()
@@ -436,4 +444,13 @@ public class Car : MonoBehaviour, IVehicle
         }
     }
 
+    public void WarningGearChange()
+    {
+
+        if(!grounded)return;
+
+        if(KPH > maxVelocity  && currentGear < Gears.Gear5 ) hudManager.WarningLight(true);
+        else hudManager.WarningLight(false);
+
+    }    
 }
