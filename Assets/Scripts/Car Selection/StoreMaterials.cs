@@ -12,10 +12,11 @@ public class StoreMaterials : MonoBehaviour
 
     private void Start() 
     {
-        if (materialData.materialData.Length == 0){return;}
+        if (materialData.materialData.Length != gameObjects.Length){return;}
         
         for (int i = 0; i < gameObjects.Length; i++)
         {
+            if (materialData.materialData[i].materials == null){return;}
             gameObjects[i].GetComponent<Renderer>().sharedMaterials = materialData.materialData[i].materials;
         }
     }
@@ -30,9 +31,7 @@ public class StoreMaterials : MonoBehaviour
 
     public void Store() 
     {
-        materialData.materialData = Array.Empty<MaterialDataScriptableObject.MaterialData>();
-
-        Array.Resize(ref materialData.materialData, gameObjects.Length);
+        materialData.materialData = new MaterialDataScriptableObject.MaterialData[gameObjects.Length];
 
         for (int i = 0; i < gameObjects.Length; i++)
         {

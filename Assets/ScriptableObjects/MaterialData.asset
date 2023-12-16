@@ -12,11 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40e5afae379002dc9a8c5929e8b7a722, type: 3}
   m_Name: MaterialData
   m_EditorClassIdentifier: 
-  materialData:
-  - gameObjectName: Biker_LP.001
-    materials:
-    - {fileID: 2100000, guid: 13f18086f90197afea032af308e83b7f, type: 2}
-    - {fileID: 2100000, guid: 4991a5763020d31ae8c3c2d5622dfb2e, type: 2}
-  - gameObjectName: MotorcycleBody_LP
-    materials:
-    - {fileID: 2100000, guid: ddc3cb5e55de0084b96361546a4d2207, type: 2}
+  materialData: []
