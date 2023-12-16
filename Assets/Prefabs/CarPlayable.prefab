@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2513308011970899344}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.15779752, y: -0, z: -0, w: 0.9874715}
+  m_LocalRotation: {x: 0.15779752, y: -1e-45, z: -0, w: 0.9874715}
   m_LocalPosition: {x: 0, y: 1.28, z: 0.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -177,6 +177,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1062955911606733463}
   - component: {fileID: 3319580023281769207}
+  - component: {fileID: 3299392583217529421}
+  - component: {fileID: 7712092023684082739}
   m_Layer: 0
   m_Name: Car
   m_TagString: Untagged
@@ -273,6 +275,52 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3299392583217529421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4292159801548537578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5935ff1bef706aa42a9918bd7ca0b595, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visualTrans: {fileID: 2603900905114303025}
+  rb: {fileID: 2705854578755452436}
+  gravityMagnitude: 100
+--- !u!114 &7712092023684082739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4292159801548537578}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: becbdbffaf93f6d4daa4754e80cf1d79,
+    type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player3
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 7280682012657046321}
 --- !u!1 &4648893849279007558
 GameObject:
   m_ObjectHideFlags: 0
@@ -358,7 +406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa7155796051b734daa718462081dc5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BindingMode: 1
+  m_BindingMode: 3
   m_FollowOffset: {x: 0, y: 2.05, z: -2.42}
   m_XDamping: 0
   m_YDamping: 0
@@ -393,7 +441,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4656861333785404706}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0000000041504937, y: 0.98094255, z: -0.19429806, w: 0.000000020954385}
+  m_LocalRotation: {x: 0.0000000029738936, y: 0.98094255, z: -0.19429807, w: 0.000000015014143}
   m_LocalPosition: {x: 0, y: 2, z: 2.46}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -468,8 +516,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5406653550674412667}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.15779752, y: -0, z: -0, w: 0.9874715}
-  m_LocalPosition: {x: 0, y: 1.28, z: 0.03}
+  m_LocalRotation: {x: 0.19640377, y: -0.00000002094543, z: 0.000000004195476, w: 0.9805231}
+  m_LocalPosition: {x: 0, y: 2.05, z: -2.42}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -508,13 +556,13 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60.000004
+  field of view: 61.64
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 503
+    m_Bits: 1527
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -637,7 +685,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5729169637744138829}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.19640376, y: -0.000000015007714, z: 0.0000000030061207, w: 0.9805231}
+  m_LocalRotation: {x: 0.19640377, y: -0.00000002094543, z: 0.000000004195476, w: 0.9805231}
   m_LocalPosition: {x: 0, y: 2.05, z: -2.42}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -695,7 +743,7 @@ GameObject:
   - component: {fileID: 8137322919375831952}
   - component: {fileID: 8673422281484997219}
   m_Layer: 0
-  m_Name: Player1
+  m_Name: CarPlayable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -762,6 +810,7 @@ GameObject:
   - component: {fileID: 772233389180947265}
   - component: {fileID: 4889091140294101715}
   - component: {fileID: 2705854578755452436}
+  - component: {fileID: 4796882612046976254}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -877,11 +926,24 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &4796882612046976254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7353925296904236362}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97b7373416b37984da37dc17f4ccb264, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 2705854578755452436}
 --- !u!1 &8414072142920462800
 GameObject:
   m_ObjectHideFlags: 0

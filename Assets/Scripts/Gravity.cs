@@ -9,14 +9,14 @@ public class Gravity : MonoBehaviour
     [SerializeField] private Transform visualTrans;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private float gravityMagnitude;
-    [SerializeField] private MeshCollider mesh;
+    private MeshCollider mesh;
 
     Ray ray;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        mesh = GameObject.FindGameObjectWithTag("Track").GetComponent<MeshCollider>();
     }
 
     // Update is called once per frame

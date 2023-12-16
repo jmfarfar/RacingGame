@@ -28,6 +28,9 @@ public class Cameras : MonoBehaviour
 
     private void Start()
     {
+        var cameras = GameObject.FindObjectsOfType<Camera>();
+        p1Camera = cameras[1];
+        p2Camera = cameras[0];
     }
 
     // Update is called once per frame
